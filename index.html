@@ -18,7 +18,22 @@
   </div>
   <div class="pages"><a class="on" href="index.html">A · Expectations</a><a href="status.html">B · Status games</a><a href="choices.html">C · Choices</a><a href="situations.html">D · Situations</a></div>
 
-  <header class="hero">
+  <section id="one-minute" class="journey" aria-label="One-minute start">
+    <div class="field">
+      <div class="label jhead"><span>OPD slip · takes one minute</span><span id="j-step">Step 1 of 5</span></div>
+      <div class="body jbody" id="j-body" aria-live="polite">
+        <p class="deva" lang="hi">लोग क्या कहेंगे?</p>
+        <h2>You have a condition. So does everyone you know.</h2>
+        <p>It is called <b>log kya kahenge</b>: what will people say. It runs in families. You caught it from people who caught it from someone else, so nobody is to blame for having it.</p>
+        <p>Symptoms: a degree chosen for the neighbours, a wedding staged for the relatives, a life arranged for four people.</p>
+        <p>There is no cure on this page. Naming it is the first step, and it takes one minute.</p>
+        <p class="gloss">A figure of speech, not a medical diagnosis.</p>
+      </div>
+      <div class="jnav"><button type="button" class="back" id="j-back" hidden>Back</button><a href="#guide" id="j-skip">Skip to the full guide</a><button type="button" class="next" id="j-next">Start</button></div>
+    </div>
+  </section>
+
+  <header class="hero" id="guide">
     <p class="deva" lang="hi">लोग क्या कहेंगे?</p>
     <h1>Application for permission to live <em>your own life</em></h1>
     <p class="lede">Permission is not actually required. Nobody tells you that, and nobody hands you the rulebook either. This is an attempt at the rulebook: what India expects of you between 15 and 34, why, how it changes with where you live, and what you can do without violence. It will not make anyone agree with you. It may make you less confused.</p>
@@ -725,7 +740,7 @@
 </script>
 <script>
 (function(){
-  var A={
+  var A=window.LKK_A={
    '15-18':{n:'Section A · The marks years',id:'age-15-18',
      all:['“Kitne percent aaye?”','Science, then engineering or medicine','Coaching, and comparison with someone’s son'],
      w:['Home before dark, and new rules about clothes','In some homes, talk of marriage before school is done'],
@@ -785,8 +800,77 @@
     var l1=document.createElement('a');l1.href='status.html';l1.textContent='Form B: '+a.g;
     var l2=document.createElement('a');l2.href='choices.html';l2.textContent='Form C: '+a.c;
     nx.appendChild(l1);nx.appendChild(document.createTextNode(' · '));nx.appendChild(l2);
+    var l3=document.createElement('a');l3.href='situations.html';l3.textContent='Form D: hostel, work, moving and family units';nx.appendChild(document.createTextNode(' · '));nx.appendChild(l3);
   }
   draw();
+})();
+</script>
+<script>
+(function(){
+  var A=window.LKK_A;
+  var X={
+   '15-18':{u:'Your parents fear you getting stuck, and marks are the only dial they know how to read.',
+     rx:'Tell one adult one true thing about what you want. Not to get permission. Only so that it has been said aloud.',
+     l:'“Abhi meri nahi chalti. Hamesha aisa nahi rahega.”',g:'Right now I don’t get a say. It will not always be this way.'},
+   '19-24':{u:'Your first salary is the family’s safety net arriving. Their fear is real. The cure they prescribe is thirty years old.',
+     rx:'Find out, in rupees, what your family actually needs from you each month. A number is lighter than a vague duty.',
+     l:'“Jo rasta main chunta hoon, uska bill bhi mera hai.”',g:'The road I choose, I pay for.'},
+   '25-29':{u:'Your parents fear leaving you alone in the world. And their own four people are asking them the same question.',
+     rx:'Decide your own answer in private: yes, no, not now, or yes but my way. Do not announce it yet. Just know it.',
+     l:'“Galat shaadi akelepan ka ilaaj nahi hai.”',g:'The wrong marriage is no cure for being alone.'},
+   '30-34':{u:'The roles are flipping. Your parents are ageing and you are becoming the safety net.',
+     rx:'Have the money and health talk with your parents: what they have, what they will need. One awkward evening.',
+     l:'“Main sabko khush nahi rakh sakta. Koshish band.”',g:'I cannot keep everyone happy. I have stopped trying.'}
+  };
+  var body=document.getElementById('j-body'),stepEl=document.getElementById('j-step'),
+      back=document.getElementById('j-back'),next=document.getElementById('j-next'),skip=document.getElementById('j-skip');
+  var first=body.innerHTML,step=1,age=null;
+  function el(t,c,txt){var e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e;}
+  function draw(){
+    stepEl.textContent='Step '+step+' of 5';
+    back.hidden=step===1;skip.hidden=step!==1;next.hidden=step===5;next.disabled=(step===2&&!age);
+    next.textContent=step===1?'Start':'Next';
+    if(step===1){body.innerHTML=first;return;}
+    body.textContent='';
+    if(step===2){
+      body.appendChild(el('p','label','Registration'));
+      body.appendChild(el('h2',null,'How old are you?'));
+      var g=el('div','big');
+      [['15-18','15–18'],['19-24','19–24'],['25-29','25–29'],['30-34','30–34']].forEach(function(o){
+        var b=el('button',null,o[1]);b.type='button';b.id='j-age-'+o[0];b.setAttribute('aria-pressed',age===o[0]?'true':'false');
+        b.addEventListener('click',function(){age=o[0];step=3;draw();});g.appendChild(b);
+      });
+      body.appendChild(g);
+      body.appendChild(el('p','gloss','Nothing you tap here leaves your phone.'));
+      return;
+    }
+    var a=A[age],x=X[age];
+    if(step===3){
+      body.appendChild(el('p','label','Symptoms at your age'));
+      body.appendChild(el('h2',null,'It sounds like this'));
+      var ul=el('ul');a.all.forEach(function(t){ul.appendChild(el('li',null,t));});body.appendChild(ul);
+      body.appendChild(el('p','label','What is underneath'));
+      body.appendChild(el('p',null,x.u));
+    } else if(step===4){
+      body.appendChild(el('p','label','Prognosis'));
+      body.appendChild(el('h2',null,'The honest part'));
+      body.appendChild(el('p',null,a.h));
+      body.appendChild(el('p',null,'It does not fully go away. It gets quieter each time you notice it and choose anyway. And nobody can do that part for you.'));
+    } else {
+      body.appendChild(el('p','rx','Rx'));
+      body.appendChild(el('p','label','One thing, this week'));
+      body.appendChild(el('p',null,x.rx));
+      body.appendChild(el('p','hand',x.l));
+      body.appendChild(el('p','gloss',x.g));
+      body.appendChild(el('p',null,'That was step one. The condition is still there. Now it has a name.'));
+      var L=el('div','jlinks');
+      [['#'+a.id,'Read your section: '+a.n.split(' · ')[1]],['situations.html','Hostel, office, city, village: the other rooms'],['status.html','The status games behind it'],['choices.html','What each choice tends to cost'],['#guide','Or scroll through everything']].forEach(function(p){
+        var k=el('a',null,p[1]);k.href=p[0];L.appendChild(k);});
+      body.appendChild(L);
+    }
+  }
+  next.addEventListener('click',function(){if(step<5&&!(step===2&&!age)){step++;draw();}});
+  back.addEventListener('click',function(){if(step>1){step--;draw();}});
 })();
 </script>
 <script src="site.js"></script>
