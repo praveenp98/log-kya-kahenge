@@ -8,17 +8,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Kalam:wght@400;700&family=Rozha+One&display=swap" rel="stylesheet">
 <style>
-/* Layout idea: one sarkari form, top to bottom. Printed labels in Hind, answers "filled in" by hand in Kalam, headings in Rozha One. One column, 680px. */
+/* Layout idea: one sarkari form, top to bottom. Printed labels in Hind, answers "filled in" by hand in Kalam, headings in Rozha One. One column, 680px. Every claim carries a confidence tag. */
 :root{
-  --paper:#E9F0E8;      /* pale green form paper */
-  --card:#F6F9F3;       /* field background */
-  --ink:#1A2238;        /* printed ink */
-  --muted:#55607A;      /* small print */
-  --pen:#1D3FB8;        /* ballpoint blue, handwritten answers */
-  --stamp:#B8204F;      /* rubber stamp */
-  --marker:#F4CF4A;     /* highlighter */
+  --paper:#E9F0E8;
+  --card:#F6F9F3;
+  --ink:#1A2238;
+  --muted:#55607A;
+  --pen:#1D3FB8;
+  --stamp:#B8204F;
+  --marker:#F4CF4A;
   --on-marker:#1A2238;
-  --rule:#A9B8AC;       /* form lines */
+  --rule:#A9B8AC;
   --display:"Rozha One","Hind",Georgia,serif;
   --body:"Hind",system-ui,-apple-system,"Segoe UI",sans-serif;
   --hand:"Kalam","Comic Sans MS",cursive;
@@ -40,7 +40,7 @@ html{scroll-behavior:smooth;scroll-padding-top:64px}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%}
 a{color:var(--pen);text-underline-offset:3px}
-a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--stamp);outline-offset:2px}
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--stamp);outline-offset:2px}
 .wrap{max-width:680px;margin:0 auto;padding:0 18px}
 h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.08;text-wrap:balance;margin:0}
 p{margin:0}
@@ -48,13 +48,18 @@ p{margin:0}
 .label{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
 .hand{font-family:var(--hand);color:var(--pen);font-size:1.12em;line-height:1.45}
 mark{background:var(--marker);color:var(--on-marker);padding:0 .2em;border-radius:2px}
+.gloss{color:var(--muted);font-size:14px;font-family:var(--body)}
 
-/* Form header */
+/* Confidence tags */
+.t{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;border-radius:2px;padding:1px 6px;margin-left:4px;border:1.5px solid currentColor;vertical-align:1px}
+.t.s{color:var(--pen)}
+.t.o{color:var(--muted)}
+.t.n{color:var(--paper);background:var(--stamp);border-color:var(--stamp)}
+
 .formhead{border-bottom:2px solid var(--ink);padding:14px 0 10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .formhead span{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
 
-/* Hero */
-.hero{padding:34px 0 30px;display:flex;flex-direction:column;gap:18px;position:relative}
+.hero{padding:34px 0 30px;display:flex;flex-direction:column;gap:18px}
 .deva{font-family:var(--display);font-size:clamp(30px,8vw,44px);color:var(--stamp);line-height:1.2}
 .hero h1{font-size:clamp(44px,13vw,84px);letter-spacing:-.01em}
 .hero h1 em{font-style:normal;color:var(--pen)}
@@ -65,66 +70,57 @@ mark{background:var(--marker);color:var(--on-marker);padding:0 .2em;border-radiu
 .tongues b{font-weight:600}
 .tongues span{color:var(--muted);font-size:12px;display:block}
 
-/* Sticky section nav */
 nav.jump{position:sticky;top:0;z-index:5;background:var(--paper);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 nav.jump .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
 nav.jump a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-weight:600;font-size:14px;border:1.5px solid var(--ink);border-radius:3px;padding:5px 10px;background:var(--card)}
 nav.jump a:hover{background:var(--marker);color:var(--on-marker)}
 
-/* Sections */
 section{padding:38px 0;border-bottom:1px dashed var(--rule)}
 .sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
 .sec-head h2{font-size:clamp(30px,8vw,44px)}
 .sec-head p{color:var(--muted)}
 
-/* Field box: the repeating form unit */
 .field{border:1.5px solid var(--ink);background:var(--card);border-radius:3px}
 .field > .label{display:block;border-bottom:1px solid var(--rule);padding:7px 12px}
 .field > .body{padding:12px 14px;display:flex;flex-direction:column;gap:10px}
-.field ul,.field ol{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:8px}
+.field ul,.field ol{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:9px}
 
-/* Rules list */
 .rules{display:flex;flex-direction:column;gap:14px;counter-reset:rule;list-style:none;margin:0;padding:0}
 .rules li{counter-increment:rule;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:start}
 .rules li::before{content:counter(rule);font-family:var(--display);font-size:34px;line-height:1;color:var(--stamp);min-width:1.1em}
 .rules h3{font-family:var(--body);font-weight:700;font-size:18px;line-height:1.3}
 .rules div{display:flex;flex-direction:column;gap:4px}
 
-/* Decoder */
+.legend{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:baseline}
+.legend .t{margin-left:0}
+
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chips button{font:inherit;font-size:15px;font-weight:500;color:var(--ink);background:var(--card);border:1.5px solid var(--ink);border-radius:999px;padding:6px 13px;cursor:pointer;text-align:left}
 .chips button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-.decode{display:flex;flex-direction:column;gap:0}
 .decode .row{padding:12px 14px;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:3px}
 .decode .row:first-child{border-top:0}
-.gloss{color:var(--muted);font-size:14px;font-family:var(--body)}
 
-/* Age sections */
 .age-tag{display:inline-block;align-self:flex-start;background:var(--ink);color:var(--paper);font-weight:700;font-size:13px;letter-spacing:.08em;padding:3px 9px;border-radius:2px;text-transform:uppercase}
-.places{display:grid;grid-template-columns:1fr;gap:0}
 .places div{padding:10px 14px;border-top:1px solid var(--rule);display:grid;grid-template-columns:92px 1fr;gap:10px}
 .places div:first-child{border-top:0}
 .places b{font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--stamp);padding-top:3px}
 .pocket{border-left:4px solid var(--pen);padding:4px 0 4px 14px;display:flex;flex-direction:column;gap:2px}
 
-/* Piles */
 .piles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
 
-/* Help box */
 .help{border:3px double var(--stamp);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--card)}
 .help h3{font-family:var(--body);font-weight:700;font-size:19px;color:var(--stamp)}
 .nums{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-variant-numeric:tabular-nums}
 .nums b{font-size:18px}
 
-/* Data table */
 .tablewrap{overflow-x:auto;border:1.5px solid var(--ink);border-radius:3px;background:var(--card)}
-table{border-collapse:collapse;width:100%;min-width:480px;font-size:15px}
+table{border-collapse:collapse;width:100%;min-width:500px;font-size:15px}
 th,td{text-align:left;padding:9px 12px;border-top:1px solid var(--rule);vertical-align:top}
 tr:first-child th{border-top:0}
 thead th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-td.n{font-family:var(--display);font-size:22px;white-space:nowrap;color:var(--pen);font-variant-numeric:tabular-nums;line-height:1.2}
+td.n{font-family:var(--display);font-size:21px;white-space:nowrap;color:var(--pen);font-variant-numeric:tabular-nums;line-height:1.2}
 
-/* Declaration */
+.quiet{font-size:20px;line-height:1.55;max-width:32em}
 .pledge{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .pledge label{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;cursor:pointer}
 .pledge input{width:22px;height:22px;margin:3px 0 0;accent-color:var(--pen)}
@@ -145,10 +141,10 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
   <header class="hero">
     <p class="deva" lang="hi">लोग क्या कहेंगे?</p>
     <h1>Application for permission to live <em>your own life</em></h1>
-    <p class="lede">Permission is not actually required. But nobody tells you that, and nobody hands you the rulebook either. This is the rulebook: what India expects from you at each age, why it expects it, how it changes with where you live, and what you can do about it without fighting anyone.</p>
+    <p class="lede">Permission is not actually required. Nobody tells you that, and nobody hands you the rulebook either. This is an attempt at the rulebook: what India expects of you between 15 and 34, why, how it changes with where you live, and what you can do without violence. It will not make anyone agree with you. It may make you less confused.</p>
     <div class="stampbox">Attested by<br>four people</div>
     <div class="stack" style="gap:8px">
-      <p class="label">Proof that we are one country: every language has this sentence</p>
+      <p class="label">Every language has this sentence</p>
       <ul class="tongues">
         <li><b>Log kya kahenge</b><span>Hindi, Urdu</span></li>
         <li><b>Naalu per enna solluvaanga</b><span>Tamil</span></li>
@@ -161,78 +157,219 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
         <li><b>Lok ki kehnge</b><span>Punjabi</span></li>
         <li><b>Loke kana kahibe</b><span>Odia</span></li>
       </ul>
-      <p class="gloss">All of them mean roughly the same thing: what will people say?</p>
+      <p class="gloss">All mean roughly: what will people say? <i class="t n">Not sure</i> The spellings are our best romanised attempt. A native speaker may write them differently.</p>
     </div>
   </header>
 </div>
 
 <nav class="jump" aria-label="Sections">
   <div class="wrap">
+    <a href="#read-first">Read first</a>
     <a href="#how-it-works">How it works</a>
-    <a href="#decoder">Decoder</a>
+    <a href="#full-list">Full list</a>
     <a href="#age-15-18">15–18</a>
     <a href="#age-19-24">19–24</a>
     <a href="#age-25-29">25–29</a>
     <a href="#age-30-34">30–34</a>
-    <a href="#toolkit">Toolkit</a>
+    <a href="#decoder">Decoder</a>
+    <a href="#what-to-do">What to do</a>
     <a href="#out-loud">Out loud</a>
+    <a href="#dont-know">Don't know</a>
     <a href="#numbers">Numbers</a>
   </div>
 </nav>
 
 <main class="wrap">
 
+<!-- READ FIRST -->
+<section id="read-first">
+  <div class="sec-head">
+    <p class="label">Part 0 · Read before filling</p>
+    <h2>How honest this form is</h2>
+    <p>Every claim on this page carries one of three tags, so you know how much to trust it.</p>
+  </div>
+  <div class="stack">
+    <div class="field"><div class="body">
+      <div class="legend">
+        <i class="t s">Survey</i><span>A published survey or official record says so. The source is in the Numbers section.</span>
+        <i class="t o">Seen often</i><span>Widely reported and familiar to most Indians, but we have no number for it. It may not be true of your family.</span>
+        <i class="t n">Not sure</i><span>We don't know. It is a guess, or the evidence is thin, old or missing.</span>
+      </div>
+    </div></div>
+    <div class="field"><span class="label">What this form cannot do</span><div class="body"><ul>
+      <li>It cannot give you a sentence that makes your family change. No such sentence exists.</li>
+      <li>It cannot tell you what to choose. It can only show you what each choice tends to cost.</li>
+      <li>It was drafted with the help of an AI system. No sociologist, lawyer or counsellor has checked it.</li>
+      <li>Most of the surveys behind it lean urban and are a few years old. Read the <a href="#dont-know">Don't know</a> section before you quote it to anyone.</li>
+    </ul></div></div>
+  </div>
+</section>
+
 <!-- HOW IT WORKS -->
 <section id="how-it-works">
   <div class="sec-head">
-    <p class="label">Part 1 · Instructions, read before filling</p>
+    <p class="label">Part 1 · Instructions</p>
     <h2>How the whole thing works</h2>
-    <p>Six rules. Once you see them, most of the pressure stops feeling personal.</p>
+    <p>Eight rules. The first six explain the pressure. The last two are the ones nobody likes hearing.</p>
   </div>
   <ol class="rules">
     <li><div>
-      <h3>Every expectation is a fear wearing formal clothes</h3>
-      <p>India has thin pensions, patchy health cover and no unemployment cheque. So the family is the insurance company, and you are the policy. One study of young men in Indian cities found that money spent on a boy is treated as cover for his parents' old age. When someone says "settle down", they are usually saying <mark>"please be safe, so that I can be safe."</mark></p>
+      <h3>Most expectations are fear in formal clothes</h3>
+      <p>India has thin pensions, patchy health cover and no unemployment cheque. So the family is the insurance company and you are the policy. A study of young men in Indian cities found that money spent on a boy is treated as cover for his parents' old age. <i class="t s">Survey</i> "Settle down" often means <mark>"be safe, so that I can be safe."</mark> Not always. Sometimes it is control, or habit, or status. <i class="t n">Not sure</i> how often it is which.</p>
     </div></li>
     <li><div>
       <h3>The timetable is a hand-me-down</h3>
-      <p>Degree by 22, job by 23, marriage by 27, child by 30, flat by 32. This schedule was written for an economy where one salary bought a house and jobs lasted forty years. Your parents followed it because it worked for them. They are giving you the best map they have. The roads have moved.</p>
+      <p>Degree by 22, job by 23, marriage by 27, child by 30, flat by 32. The schedule was written for an economy where one salary bought a house. In 2022, the unemployment rate among young graduates was 29%, against 3% for young people who cannot read. <i class="t s">Survey</i> Your parents are giving you the best map they have. The roads have moved.</p>
     </div></li>
     <li><div>
       <h3>"Log" are about four people</h3>
-      <p>Ask anyone to name the people whose opinion they fear. The list is short: one bua, one neighbour, two relatives from the wedding circuit. Tamil even counts them. The phrase is literally "what will four people say". Four people is a small committee to hand your life to.</p>
+      <p>Ask anyone to name the people whose opinion they fear. The list is short. Tamil even counts them: the phrase is "what will four people say". <i class="t o">Seen often</i></p>
     </div></li>
     <li><div>
       <h3>Your parents are being graded too</h3>
-      <p>Your marks, your package and your wedding are their report card in front of their own four people. The aunty asking about your marriage was asked the same question in 1994 by an aunty who was asked in 1968. It is a relay race of worry, and nobody remembers who started it.</p>
+      <p>Your marks, package and wedding are their report card before their own four people. The aunty asking about your marriage was asked the same thing decades ago. <i class="t o">Seen often</i></p>
     </div></li>
     <li><div>
-      <h3>Money talks in a voice everyone understands</h3>
-      <p>In most Indian homes, the person who pays has the bigger vote. This is unfair to say and useful to know. Your own income, even a small one, changes how your sentences land at the dinner table.</p>
+      <h3>Money has the loudest vote</h3>
+      <p>In most homes, the person who pays decides more. That is unfair to people who cannot earn yet, and to women who are kept from earning. It is still how it works. <i class="t o">Seen often</i></p>
     </div></li>
     <li><div>
       <h3>You are also "log"</h3>
-      <p>For some younger cousin, some junior, some friend who quit their job, you are one of the four people. This is the best news in the form. If you are part of the pressure, you can also be the part that stops.</p>
+      <p>For some younger cousin or junior, you are one of the four. You are part of the pressure, so you can be part of where it stops.</p>
+    </div></li>
+    <li><div>
+      <h3>No sentence will fix it</h3>
+      <p>Films end with a speech and a hug. Homes mostly don't. People change slowly, through years of watching you live, or they don't change. Clever replies end a conversation. They rarely change a mind. <i class="t o">Seen often</i></p>
+    </div></li>
+    <li><div>
+      <h3>You arrive alone and you leave alone</h3>
+      <p>Nobody can sit your exam for you, live inside your marriage for you, or take your place at the end. So the last decision about your life is yours, and so is the bill. That same fact is why the people who walk beside you matter so much. And it is why they cannot be measured in marks, salary, obedience or sacrifice. The moment you start counting, it stops being a relationship and becomes an account.</p>
     </div></li>
   </ol>
 </section>
 
-<!-- DECODER -->
-<section id="decoder">
+<!-- FULL LIST -->
+<section id="full-list">
   <div class="sec-head">
-    <p class="label">Part 2 · Translation service</p>
-    <h2>The relative decoder</h2>
-    <p>Tap a question. See what was said, what was meant, and a reply that keeps both your dignity and theirs.</p>
+    <p class="label">Part 2 · Schedule of expectations</p>
+    <h2>The full list</h2>
+    <p>Eleven areas, as complete as we could make it. Not every item applies to every family, and the list is certainly missing things.</p>
   </div>
   <div class="stack">
-    <div class="chips" id="chips" role="group" aria-label="Questions you get asked"></div>
-    <div class="field">
-      <div class="decode" aria-live="polite">
-        <div class="row"><span class="label">What they said</span><p id="d-said" style="font-weight:600;font-size:19px"></p></div>
-        <div class="row"><span class="label">What they meant</span><p id="d-meant"></p></div>
-        <div class="row"><span class="label">What you can say</span><p class="hand" id="d-say"></p><p class="gloss" id="d-gloss"></p></div>
-      </div>
-    </div>
+
+    <div class="field"><span class="label">L1 · Studies and marks</span><div class="body"><ul>
+      <li><b>Top marks, every time.</b> Marks are read as character, not as one exam on one day. <i class="t o">Seen often</i></li>
+      <li><b>Science after class 10.</b> Commerce is the compromise. Arts is treated as what is left over. <i class="t o">Seen often</i></li>
+      <li><b>Engineer, doctor or government officer.</b> Everything else needs explaining. <i class="t o">Seen often</i></li>
+      <li><b>Coaching, often in another city, from 14 or 15.</b> <i class="t o">Seen often</i></li>
+      <li><b>Good English.</b> Treated as proof of intelligence. <i class="t o">Seen often</i></li>
+      <li><b>No gaps.</b> A year off is allowed only to retake an entrance exam. <i class="t o">Seen often</i></li>
+      <li><b>For many girls, school ends when marriage, money or distance gets in the way.</b> One in five women aged 20 to 24 was married before 18. In villages it is 23%, in cities 11%. <i class="t s">Survey</i></li>
+      <li><b>The cost.</b> 14,488 students died by suicide in 2024, up about 80% in ten years. <i class="t s">Survey</i> How much of that is exam pressure, we do not know. Police records name exam failure in only a small share, and those records are rough. <i class="t n">Not sure</i></li>
+    </ul></div></div>
+
+    <div class="field"><span class="label">L2 · Work and money</span><div class="body"><ul>
+      <li><b>A job straight after the degree.</b> A gap is read as failure. Yet young people are about 83% of India's unemployed. <i class="t s">Survey</i></li>
+      <li><b>A government job is the only real job.</b> <i class="t o">Seen often</i></li>
+      <li><b>Your salary is public information.</b> <i class="t o">Seen often</i></li>
+      <li><b>Sons provide.</b> For parents, for a sister's wedding, for a house. 43% of Indians say earning is mainly the man's job. <i class="t s">Survey</i></li>
+      <li><b>Daughters may work, within limits.</b> A "suitable" job, near home, and not above the husband. About 8 in 10 Indians agree men should get jobs first when jobs are scarce. Only 25% of women aged 15 to 59 are in employment, against 75% of men. <i class="t s">Survey</i></li>
+      <li><b>Send money home.</b> <i class="t o">Seen often</i></li>
+      <li><b>Buy a house. Rent is "waste".</b> <i class="t o">Seen often</i></li>
+      <li><b>Take no risks.</b> No startup, art, sport or career switch, unless you have already succeeded at it. <i class="t o">Seen often</i></li>
+      <li><b>Join the family business, shop or farm.</b> <i class="t o">Seen often</i></li>
+      <li><b>Go abroad, or never go abroad.</b> Families differ sharply and we have no data on which is more common. <i class="t n">Not sure</i></li>
+    </ul></div></div>
+
+    <div class="field"><span class="label">L3 · Marriage</span><div class="body"><ul>
+      <li><b>You will marry.</b> Staying single is not offered as an option. <i class="t o">Seen often</i></li>
+      <li><b>By a deadline.</b> Roughly mid-twenties for women, late twenties for men, earlier in villages. The exact age differs by family and place and we have no reliable figure for it. <i class="t n">Not sure</i></li>
+      <li><b>Parents choose or approve.</b> 84% of married young people said their marriage was arranged by parents. <i class="t s">Survey</i></li>
+      <li><b>Same caste, same religion.</b> Often same language and region too. About 5% of marriages are inter-caste. <i class="t s">Survey</i></li>
+      <li><b>Dowry.</b> Illegal since 1961, and still expected in many marriages, often renamed "gifts". We could not find a recent national number we trust. <i class="t n">Not sure</i></li>
+      <li><b>A big wedding.</b> Paid for with savings or loans, mostly by the bride's side. <i class="t o">Seen often</i></li>
+      <li><b>She moves, she adjusts.</b> The wife joins the husband's home and learns its rules. <i class="t o">Seen often</i></li>
+      <li><b>The biodata checklist.</b> Horoscope, skin colour, height, salary, "homely". <i class="t o">Seen often</i></li>
+      <li><b>Stay married.</b> Divorce is read as failure. Acceptance is higher among educated and urban young people. <i class="t s">Survey</i></li>
+      <li><b>If you are queer, marry the opposite sex anyway.</b> <i class="t o">Seen often</i> As far as we could check in November 2026, Indian law still does not recognise same-sex marriage. <i class="t s">Survey</i></li>
+    </ul></div></div>
+
+    <div class="field"><span class="label">L4 · Children</span><div class="body"><ul>
+      <li><b>A child within a year or two of the wedding.</b> <i class="t o">Seen often</i></li>
+      <li><b>At least one son.</b> 63% of Indians say sons, not daughters, should mainly handle parents' last rites. <i class="t s">Survey</i></li>
+      <li><b>Two children.</b> One is "lonely", none is "selfish". About four in ten women and a third of men name two as ideal. <i class="t s">Survey</i></li>
+      <li><b>The mother slows down. The father does not.</b> Women spend 289 minutes a day on unpaid housework, men 88. On caregiving, 137 minutes against 75. <i class="t s">Survey</i></li>
+      <li><b>Grandparents get a vote on how the child is raised.</b> <i class="t o">Seen often</i></li>
+      <li><b>If there is no child, she is blamed first.</b> <i class="t o">Seen often</i></li>
+      <li><b>Choosing to have no children.</b> We do not know how common it is in India, or how families respond over time. <i class="t n">Not sure</i></li>
+    </ul></div></div>
+
+    <div class="field"><span class="label">L5 · Body and looks</span><div class="body"><ul>
+      <li><b>Fair skin.</b> Pressed hardest on women. <i class="t o">Seen often</i></li>
+      <li><b>The right weight.</b> Comments on your body work as a greeting. More than half of young Indians say they worry about their appearance. <i class="t s">Survey</i></li>
+      <li><b>Men must be tall, strong and not bald.</b> Body-shaming among boys is documented in city studies. <i class="t s">Survey</i></li>
+      <li><b>Dress "decently".</b> The rule tightens for girls at puberty and again after marriage. <i class="t o">Seen often</i></li>
+      <li><b>Hair, beard, tattoos and piercings are read as character.</b> <i class="t o">Seen often</i></li>
+      <li><b>Periods are not discussed.</b> In some homes they bring kitchen or prayer restrictions. This differs widely by family and community. <i class="t n">Not sure</i></li>
+    </ul></div></div>
+
+    <div class="field"><span class="label">L6 · Freedom and izzat</span><div class="body"><ul>
+      <li><b>Home before dark.</b> Mostly for daughters. <i class="t o">Seen often</i></li>
+      <li><b>The family's honour lives in a daughter's behaviour.</b> A son's behaviour is "boys will be boys". <i class="t o">Seen often</i></li>
+      <li><b>No dating.</b> Or dating, in secret. <i class="t o">Seen often</i></li>
+      <li><b>The "right" friends.</b> Young men are more likely than young women to weigh caste, money and English when making friends. <i class="t s">Survey</i></li>
+      <li><b>Your phone can be checked.</b> More often for girls. We have no number for how common this is. <i class="t n">Not sure</i></li>
+      <li><b>Do not live alone before marriage.</b> Suspicious for anyone, more so for women. <i class="t o">Seen often</i></li>
+      <li><b>Do not drink or smoke.</b> Or do not be seen. <i class="t o">Seen often</i></li>
+      <li><b>Never answer back to an elder.</b> <i class="t o">Seen often</i></li>
+    </ul></div></div>
+
+    <div class="field"><span class="label">L7 · Caste, religion and community</span><div class="body"><ul>
+      <li><b>Marry inside.</b> Six in ten young people say they support inter-caste marriage. One marriage in twenty is one. <i class="t s">Survey</i></li>
+      <li><b>Eat inside.</b> Food rules mark who belongs. In 2011-12, 30% of rural and 20% of urban households said they practised untouchability. That figure is old. <i class="t s">Survey</i></li>
+      <li><b>Keep the fasts, festivals and prayers.</b> <i class="t o">Seen often</i></li>
+      <li><b>Rent only where you are allowed.</b> Landlords screening by religion, caste, food and marital status is widely reported. We have no number. <i class="t o">Seen often</i></li>
+      <li><b>Your surname speaks before you do.</b> <i class="t o">Seen often</i></li>
+      <li><b>If your group faces discrimination: be twice as good and do not complain.</b> Many people report this. We cannot speak for it. <i class="t n">Not sure</i></li>
+      <li><b>What we are missing.</b> How these pressures differ for Dalit, Adivasi, Muslim, Christian, Sikh and north-eastern young people. This page does not know enough to say. <i class="t n">Not sure</i></li>
+    </ul></div></div>
+
+    <div class="field"><span class="label">L8 · Roles inside the home</span><div class="body"><ul>
+      <li><b>A wife obeys.</b> 87% of Indian adults agree a wife must always obey her husband. Women agree almost as often as men. <i class="t s">Survey</i></li>
+      <li><b>She runs the house, even if she also earns.</b> <i class="t s">Survey</i></li>
+      <li><b>Sons look after parents.</b> About four in ten say sons should carry the main duty. 2% say daughters. <i class="t s">Survey</i></li>
+      <li><b>Men do not cry or ask for help.</b> <i class="t o">Seen often</i></li>
+      <li><b>A daughter-in-law serves. A son-in-law is served.</b> <i class="t o">Seen often</i></li>
+      <li><b>Brothers guard sisters.</b> <i class="t o">Seen often</i></li>
+      <li><b>If you are trans or non-binary, the expectation is that you do not exist.</b> This page knows too little here. <i class="t n">Not sure</i></li>
+    </ul></div></div>
+
+    <div class="field"><span class="label">L9 · Language, class and status</span><div class="body"><ul>
+      <li><b>English means smart. Accent means class.</b> <i class="t o">Seen often</i></li>
+      <li><b>Speak the "right" language for the room.</b> Your mother tongue can be mocked in a metro and demanded at home. <i class="t o">Seen often</i></li>
+      <li><b>"Good family" and "well settled".</b> Often code for money and caste. <i class="t o">Seen often</i></li>
+      <li><b>First in the family to reach college.</b> You carry everyone's hope and nobody has a map for you. <i class="t o">Seen often</i></li>
+      <li><b>The scoreboard.</b> Phone, bike, car, flat, wedding. <i class="t o">Seen often</i></li>
+    </ul></div></div>
+
+    <div class="field"><span class="label">L10 · Parents and elders</span><div class="body"><ul>
+      <li><b>Live with them or near them.</b> Expected mainly of sons. <i class="t s">Survey</i></li>
+      <li><b>Obey, even as an adult.</b> <i class="t o">Seen often</i></li>
+      <li><b>Repay the sacrifice.</b> <i class="t o">Seen often</i></li>
+      <li><b>Never an old-age home.</b> <i class="t o">Seen often</i></li>
+      <li><b>Keep family problems inside the house.</b> Therapy is "for mad people". Roughly 85% of Indians with a mental health condition get no treatment. <i class="t s">Survey</i></li>
+      <li><b>Property.</b> 64% say sons and daughters should inherit equally. Whether daughters actually receive their share, or are asked to sign it away, we could not verify. <i class="t n">Not sure</i></li>
+    </ul></div></div>
+
+    <div class="field"><span class="label">L11 · The new "log": friends and the feed</span><div class="body"><ul>
+      <li><b>Look successful by 25.</b> <i class="t o">Seen often</i></li>
+      <li><b>Show the trip, the body, the relationship.</b> <i class="t o">Seen often</i></li>
+      <li><b>Hustle.</b> A side income, a startup, a personal brand. <i class="t o">Seen often</i></li>
+      <li><b>Have an opinion on everything, today.</b> <i class="t o">Seen often</i></li>
+      <li><b>Be "chill" about things that hurt.</b> <i class="t o">Seen often</i></li>
+      <li><b>How much of the pressure is family and how much is peers?</b> We found no data. For some people the feed is heavier than the family. <i class="t n">Not sure</i></li>
+    </ul></div></div>
+
   </div>
 </section>
 
@@ -241,34 +378,37 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
   <div class="sec-head">
     <span class="age-tag">Section A · Age 15 to 18</span>
     <h2>The marks years</h2>
-    <p>You have the least power you will ever have and the most people checking on you. Both are temporary.</p>
+    <p>You have the least power you will ever have and the most people checking on you.</p>
   </div>
   <div class="stack">
-    <div class="field"><span class="label">A1 · Standard questions</span><div class="body"><ul>
+    <div class="field"><span class="label">A1 · What you will be asked</span><div class="body"><ul>
       <li>"Kitne percent aaye?"</li>
       <li>"Science liya na?"</li>
       <li>"Phone rakh do. Sharma ji ka beta dekho."</li>
       <li>"Ek baar entrance nikal jaye, phir life set hai."</li>
     </ul></div></div>
-    <div class="field"><span class="label">A2 · What is going on underneath</span><div class="body">
-      <p>For most Indian families, education is the only lift that goes up. Your parents are not in love with marks. They are terrified of you getting stuck, and marks are the only dial they know how to read. Nobody told them there are other dials.</p>
-      <p>Appearance starts getting commented on now too. In a national youth survey, more than half of young people said they worry about how they look. You are not vain. You are being watched.</p>
+    <div class="field"><span class="label">A2 · What is underneath</span><div class="body">
+      <p>For most families, education is the only lift that goes up. Your parents fear you getting stuck, and marks are the only dial they know how to read. <i class="t o">Seen often</i></p>
+      <p>"Life set hai" after the entrance exam is not true. The questions only change. Nobody is lying to you. They were told the same thing.</p>
     </div></div>
     <div class="field"><span class="label">A3 · Where you live changes it</span><div class="places">
-      <div><b>Metro</b><span>Coaching from class 8. You are compared with the whole apartment WhatsApp group. More options, more comparison.</span></div>
-      <div><b>Small city</b><span>Three approved careers: engineer, doctor, sarkari. The coaching hub in another city is sold as the only ticket out.</span></div>
-      <div><b>Village</b><span>Staying in school can itself be the fight, more so for girls. Housework and farm work compete with homework, and marriage talk can start early. A large survey found seven in ten teenage girls want to finish graduation. The wish is there. The road is what's missing.</span></div>
-      <div><b>Abroad</b><span>"We moved here for you." The sacrifice arrives as an invoice, payable in grades.</span></div>
+      <div><b>Metro</b><span>Coaching from class 8. Compared with the whole apartment WhatsApp group. <i class="t o">Seen often</i></span></div>
+      <div><b>Small city</b><span>Three approved careers. A coaching hub in another city is sold as the only way out. <i class="t o">Seen often</i></span></div>
+      <div><b>Village</b><span>Staying in school can be the fight, more so for girls. Seven in ten teenage girls say they want to finish graduation. <i class="t s">Survey</i> What daily life is like village to village, we cannot say. <i class="t n">Not sure</i></span></div>
+      <div><b>Abroad</b><span>"We moved here for you." The sacrifice arrives as an invoice. <i class="t n">Not sure</i> This is from accounts we have read, not data.</span></div>
     </div></div>
-    <div class="field"><span class="label">A4 · Moves</span><div class="body"><ol>
-      <li><b>Report before you are asked.</b> Parents panic at silence. A five-minute weekly update buys more freedom than any argument.</li>
-      <li><b>Bring a plan, not a mood.</b> Want arts, design, sports? Show the course, the college, the jobs and the backup. A plan gets a hearing. "I just don't like science" gets a lecture.</li>
+    <div class="field"><span class="label">A4 · What you can do</span><div class="body"><ol>
+      <li><b>Report before you are asked.</b> Silence frightens parents more than bad news.</li>
+      <li><b>Bring a plan.</b> Course, college, jobs, backup. It may still be refused. It will at least be heard.</li>
       <li><b>Borrow an adult.</b> A teacher, older cousin or mama can say your sentence in a voice your parents trust.</li>
-      <li><b>One mark sheet is weather. Your life is climate.</b> On the day it feels like everything, tell one person. That day passes faster when it is shared.</li>
+      <li><b>Tell one person on the bad day.</b> One mark sheet is not your life. On the day it feels like it is, do not be alone with it.</li>
     </ol></div></div>
-    <div class="pocket"><span class="label">Line to keep in your pocket</span>
-      <p class="hand">"Sharma ji ka beta bhi kisi aur ke Sharma ji ke bete se compare ho raha hai."</p>
-      <p class="gloss">Sharma ji's son is also being compared with somebody else's Sharma ji's son.</p>
+    <div class="field"><span class="label">A5 · The honest part</span><div class="body">
+      <p>At 16 you often cannot win. You do not earn, you cannot leave, and the law treats you as a child. Sometimes the only real move is to get through these years with your mind intact and choose later. That is not giving up. It is waiting until you have a vote.</p>
+    </div></div>
+    <div class="pocket"><span class="label">A true line to keep</span>
+      <p class="hand">"Abhi meri nahi chalti. Hamesha aisa nahi rahega."</p>
+      <p class="gloss">Right now I don't get a say. It will not always be this way.</p>
     </div>
   </div>
 </section>
@@ -278,34 +418,37 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
   <div class="sec-head">
     <span class="age-tag">Section B · Age 19 to 24</span>
     <h2>The package years</h2>
-    <p>The question changes from "how much did you score" to "how much do you earn". Same question, new unit.</p>
+    <p>The question changes from "how much did you score" to "how much do you earn".</p>
   </div>
   <div class="stack">
-    <div class="field"><span class="label">B1 · Standard questions</span><div class="body"><ul>
+    <div class="field"><span class="label">B1 · What you will be asked</span><div class="body"><ul>
       <li>"Placement hua? Kitna package?"</li>
       <li>"Government job ki taiyari kar lo. Safe hai."</li>
-      <li>"Itni door kyun jaana hai?" (asked far more often of daughters)</li>
-      <li>"Padhai ho gayi. Ab rishte dekhein?" (in many homes, to women, the week after the last exam)</li>
+      <li>"Itni door kyun jaana hai?" (asked more of daughters)</li>
+      <li>"Padhai ho gayi. Ab rishte dekhein?" (in many homes, to women)</li>
     </ul></div></div>
-    <div class="field"><span class="label">B2 · What is going on underneath</span><div class="body">
-      <p>When young Indians were asked what worries them most, the top answer was their family's financial security, ahead of their own health. Jobs came right after. Your first salary is not only yours in the family's mind. It is the safety net finally arriving.</p>
-      <p>Meanwhile you are comparing yourself with LinkedIn, which is the aunty network with better fonts.</p>
+    <div class="field"><span class="label">B2 · What is underneath</span><div class="body">
+      <p>Asked what worries them most, young Indians put their family's financial security first, ahead of their own health. <i class="t s">Survey</i> Your first salary is the safety net arriving.</p>
+      <p>And the fear is not irrational. Jobs for graduates are short. Your parents are wrong about the cure, not about the disease.</p>
     </div></div>
     <div class="field"><span class="label">B3 · Where you live changes it</span><div class="places">
-      <div><b>Metro</b><span>The hustle script: startup, side gig, "what are you building?" Rent eats the salary, and loneliness is the bill nobody mentions.</span></div>
-      <div><b>Small city</b><span>Sarkari naukri is the gold standard, so years go into attempts. Relationships stay secret because everybody knows everybody.</span></div>
-      <div><b>Village</b><span>Earn now. Many young men migrate for work. For many young women, the wedding arrives before the degree does.</span></div>
-      <div><b>Abroad</b><span>Loans, visas, and two opposite instructions from home: "come back soon" and "don't you dare come back".</span></div>
+      <div><b>Metro</b><span>The hustle script. Rent eats the salary. Loneliness is the bill nobody mentions. <i class="t o">Seen often</i></span></div>
+      <div><b>Small city</b><span>Sarkari naukri is the gold standard, so years go into attempts. Relationships stay secret. <i class="t o">Seen often</i></span></div>
+      <div><b>Village</b><span>Earn now. Many men migrate for work. For many women, the wedding arrives before the degree. <i class="t o">Seen often</i></span></div>
+      <div><b>Abroad</b><span>Loans, visas, and "come back" and "don't come back" from the same house. <i class="t n">Not sure</i></span></div>
     </div></div>
-    <div class="field"><span class="label">B4 · Moves</span><div class="body"><ol>
-      <li><b>Earn something early.</b> Tuitions, freelancing, a part-time job. Even ₹5,000 a month of your own changes your standing at home.</li>
-      <li><b>Put a date on your gamble.</b> "Two UPSC attempts, till June 2028. After that, plan B is this." Families can live with a deadline. They cannot live with fog.</li>
-      <li><b>Share your life in small doses.</b> Mention your friends, your city, your doubts. Surprise is what turns a choice into a scandal.</li>
-      <li><b>Compare with yourself from last year.</b> Everyone else's reel is edited. So is yours.</li>
+    <div class="field"><span class="label">B4 · What you can do</span><div class="body"><ol>
+      <li><b>Earn something, early.</b> Any amount of your own changes your standing at home.</li>
+      <li><b>Put a date on your gamble.</b> "Two attempts, till June 2028, then this plan B." And mean it.</li>
+      <li><b>Tell them about your life in small doses.</b> Surprise is what turns a choice into a scandal.</li>
+      <li><b>Find out what the family actually needs from you in rupees.</b> A vague duty is heavier than a number.</li>
     </ol></div></div>
-    <div class="pocket"><span class="label">Line to keep in your pocket</span>
-      <p class="hand">"Package chhota hai, par EMI bhi nahi hai. Hisaab se main ameer hoon."</p>
-      <p class="gloss">The package is small, but so is my EMI. On paper, I'm rich.</p>
+    <div class="field"><span class="label">B5 · The honest part</span><div class="body">
+      <p>Choosing your own road can mean being the family disappointment for years. Some parents come round once it works. Some come round and never say so. Some don't. And your road may fail. Then you will hear "I told you so", and part of it will be fair. That is the price of choosing, and it does not have a discount.</p>
+    </div></div>
+    <div class="pocket"><span class="label">A true line to keep</span>
+      <p class="hand">"Jo rasta main chunta hoon, uska bill bhi mera hai."</p>
+      <p class="gloss">The road I choose, I pay for.</p>
     </div>
   </div>
 </section>
@@ -318,31 +461,34 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
     <p>Every wedding you attend becomes a public hearing on your own.</p>
   </div>
   <div class="stack">
-    <div class="field"><span class="label">C1 · Standard questions</span><div class="body"><ul>
+    <div class="field"><span class="label">C1 · What you will be asked</span><div class="body"><ul>
       <li>"Shaadi kab kar rahe ho? Koi hai kya?"</li>
       <li>"Umar nikal rahi hai." (women hear it earlier and louder)</li>
       <li>"Settle ho gaye? Ghar liya?" (men hear this one)</li>
       <li>"Apni community mein hi dekhna."</li>
     </ul></div></div>
-    <div class="field"><span class="label">C2 · What is going on underneath</span><div class="body">
-      <p>A marriage here is a merger of two families, so everybody feels like a shareholder. In a national survey, 84% of married young people said their parents arranged it. And here is the gap that explains a lot of quiet heartbreak: about six in ten young Indians say they support inter-caste marriage, while only about one marriage in twenty actually is one.</p>
-      <p>Also, you are not late. The share of 15 to 34 year olds who are married has dropped 13 points since 2007. The whole country is moving the date. Your relatives have not received the memo.</p>
+    <div class="field"><span class="label">C2 · What is underneath</span><div class="body">
+      <p>A marriage here joins two families, so everybody feels like a shareholder. Your parents also fear dying while you are alone. That fear is real and it is love.</p>
+      <p>You are not late. The share of 15 to 34 year olds who are married fell 13 points between 2007 and 2021. <i class="t s">Survey</i></p>
     </div></div>
     <div class="field"><span class="label">C3 · Where you live changes it</span><div class="places">
-      <div><b>Metro</b><span>A dating app and a biodata, both running at once. Living alone is questioned less. The wedding costs more.</span></div>
-      <div><b>Small city</b><span>The clock rings at 24 or 25 for women. A partner from another caste or religion is the hardest news to carry home.</span></div>
-      <div><b>Village</b><span>Many are already married. The questions have moved on to children, earning, and whether a wife may work.</span></div>
-      <div><b>Abroad</b><span>"Find someone from our community." Trips home turn into rishta camps with jet lag.</span></div>
+      <div><b>Metro</b><span>A dating app and a biodata running at once. Living alone questioned less. <i class="t o">Seen often</i></span></div>
+      <div><b>Small city</b><span>The clock rings at 24 or 25 for women. A partner from another caste or religion is the hardest news to carry home. <i class="t o">Seen often</i></span></div>
+      <div><b>Village</b><span>Many are already married. The questions are about children, earning, and whether a wife may work. <i class="t o">Seen often</i></span></div>
+      <div><b>Abroad</b><span>"Find someone from our community." Trips home become rishta camps. <i class="t n">Not sure</i></span></div>
     </div></div>
-    <div class="field"><span class="label">C4 · Moves</span><div class="body"><ol>
-      <li><b>Know your own answer first.</b> Yes, no, not now, or yes but my way. Vague answers invite follow-up questions.</li>
-      <li><b>If it is "not now", name a month.</b> "Ask me again after March 2028." Then actually have the conversation in March 2028.</li>
-      <li><b>If your partner is not who they expect, go in order.</b> Income first. A place to stay. One ally in the family. Then one parent, then both. The sequence matters more than the speech. Two adults can legally marry across caste or religion in India under the Special Marriage Act.</li>
-      <li><b>If the script has no page for you</b>, because you are queer or do not want marriage at all, find your people before you make any announcements. Telling can wait until you are safe.</li>
+    <div class="field"><span class="label">C4 · What you can do</span><div class="body"><ol>
+      <li><b>Know your own answer first.</b> Yes, no, not now, or yes but my way.</li>
+      <li><b>Say it plainly, once, in private.</b> Vague answers get you more questions and no peace.</li>
+      <li><b>If your partner is not who they expect, go in order.</b> Income. A place to stay. One ally. Then tell them. Two adults can marry across caste or religion under the Special Marriage Act, but it requires a 30-day public notice, which can alert a family that objects. <i class="t s">Survey</i> Talk to a lawyer or a support group before you file. <i class="t n">Not sure</i> how the notice is handled in your district.</li>
+      <li><b>If the script has no page for you</b>, because you are queer or do not want marriage, find your people before any announcement. Telling can wait until you are safe.</li>
     </ol></div></div>
-    <div class="pocket"><span class="label">Line to keep in your pocket</span>
-      <p class="hand">"Aunty, jab hogi, pehla card aapka. Tab tak aap paneer lijiye."</p>
-      <p class="gloss">Aunty, when it happens, the first card is yours. Until then, please have some paneer.</p>
+    <div class="field"><span class="label">C5 · The honest part</span><div class="body">
+      <p>Marrying your own choice can cost you your family for years, and in some cases for good. In some families and places it is physically dangerous. Marrying their choice to keep the peace also costs, and that bill is paid every day inside the marriage, by two people. There is no free option here. There is only the one whose price you can live with.</p>
+    </div></div>
+    <div class="pocket"><span class="label">A true line to keep</span>
+      <p class="hand">"Galat shaadi akelepan ka ilaaj nahi hai."</p>
+      <p class="gloss">The wrong marriage is no cure for being alone.</p>
     </div>
   </div>
 </section>
@@ -352,70 +498,114 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
   <div class="sec-head">
     <span class="age-tag">Section D · Age 30 to 34</span>
     <h2>The "ab toh" years</h2>
-    <p>"Ab toh kar lo." At least do it now. The sentence fits everything: marriage, baby, flat, second baby.</p>
+    <p>"Ab toh kar lo." At least do it now. It fits marriage, baby, flat and second baby.</p>
   </div>
   <div class="stack">
-    <div class="field"><span class="label">D1 · Standard questions</span><div class="body"><ul>
+    <div class="field"><span class="label">D1 · What you will be asked</span><div class="body"><ul>
       <li>"Good news kab de rahe ho?"</li>
-      <li>"Ghar kab le rahe ho? Kiraye mein paisa barbaad hai."</li>
+      <li>"Ghar kab le rahe ho?"</li>
       <li>"Mummy-papa ko paas bula lo." Or: "Wapas aa jao."</li>
-      <li>If single: "Sab theek toh hai na?" with a tilted head.</li>
+      <li>If single: "Sab theek toh hai na?"</li>
     </ul></div></div>
-    <div class="field"><span class="label">D2 · What is going on underneath</span><div class="body">
-      <p>The roles are flipping. Your parents are ageing and you are becoming the safety net. About four in ten Indians say sons should carry the main duty of caring for ageing parents. Only 2% say daughters should. So sons feel a weight nobody says aloud, and daughters do the caring anyway without the credit.</p>
-      <p>On children, a 2026 UN survey found young Indians are delaying family mostly because of money worries and unequal housework, not because they have stopped wanting one. It is arithmetic. People keep calling it selfishness.</p>
+    <div class="field"><span class="label">D2 · What is underneath</span><div class="body">
+      <p>The roles are flipping. Your parents are ageing and you are becoming the safety net. Sons are named for this duty. Daughters often do the caring without the credit. <i class="t s">Survey</i></p>
+      <p>On children, a 2026 UN survey found young Indians delay family mainly over money and unequal housework, not because they have stopped wanting one. <i class="t s">Survey</i></p>
     </div></div>
     <div class="field"><span class="label">D3 · Where you live changes it</span><div class="places">
-      <div><b>Metro</b><span>EMI, school fees, two jobs. Childcare still lands mostly on her. You are the filling in a sandwich between your kids and your parents.</span></div>
-      <div><b>Small city</b><span>Joint family negotiations: whose kitchen, whose rules, whose turn to host.</span></div>
-      <div><b>Village</b><span>You are already a senior. The talk is about sons, land, and who has to leave for work.</span></div>
-      <div><b>Abroad</b><span>Parents growing old 8,000 km away. Guilt, delivered across two time zones.</span></div>
+      <div><b>Metro</b><span>EMI, school fees, two jobs. Childcare still lands mostly on her. <i class="t o">Seen often</i></span></div>
+      <div><b>Small city</b><span>Joint family negotiations: whose kitchen, whose rules. <i class="t o">Seen often</i></span></div>
+      <div><b>Village</b><span>You are already a senior. The talk is of sons, land, and who must leave for work. <i class="t n">Not sure</i></span></div>
+      <div><b>Abroad</b><span>Parents growing old far away. Guilt across two time zones. <i class="t n">Not sure</i></span></div>
     </div></div>
-    <div class="field"><span class="label">D4 · Moves</span><div class="body"><ol>
-      <li><b>Have the money talk with your parents.</b> What they have, what they will need, health insurance. One awkward evening saves ten anxious years.</li>
-      <li><b>On children, two people have a vote.</b> Practise saying that warmly. Warm and firm is a skill, and it improves with use.</li>
-      <li><b>If you are single at 32, you are not a pending file.</b> Furnish the house. Build the friendships. Book the health check-up. Do not live in a waiting room.</li>
-      <li><b>Stop the chain going down.</b> Do not ask your 22-year-old cousin about her package. Ask what she is enjoying.</li>
+    <div class="field"><span class="label">D4 · What you can do</span><div class="body"><ol>
+      <li><b>Have the money talk with your parents.</b> What they have, what they will need, health insurance.</li>
+      <li><b>On children, two people have a vote.</b> Say so, kindly, and stop explaining.</li>
+      <li><b>If you are single, live fully now.</b> Do not keep your life in a waiting room.</li>
+      <li><b>Stop the chain going down.</b> Do not ask your 22-year-old cousin about her package.</li>
     </ol></div></div>
-    <div class="pocket"><span class="label">Line to keep in your pocket</span>
-      <p class="hand">"Good news yeh hai ki hum khush hain. Baaki bulletin baad mein."</p>
-      <p class="gloss">The good news is that we're happy. The rest of the bulletin comes later.</p>
+    <div class="field"><span class="label">D5 · The honest part</span><div class="body">
+      <p>You cannot be the perfect child, partner, parent and employee in the same decade. Someone will be let down, and some days it will be the person you love most. Caring for ageing parents is heavy, and no reply on this page makes it lighter. Decide who you will let down, on purpose, instead of letting everyone down by accident.</p>
+    </div></div>
+    <div class="pocket"><span class="label">A true line to keep</span>
+      <p class="hand">"Main sabko khush nahi rakh sakta. Koshish band."</p>
+      <p class="gloss">I cannot keep everyone happy. I have stopped trying.</p>
     </div>
   </div>
 </section>
 
-<!-- TOOLKIT -->
-<section id="toolkit">
+<!-- DECODER -->
+<section id="decoder">
   <div class="sec-head">
-    <p class="label">Part 3 · Works at any age</p>
-    <h2>The no-fight toolkit</h2>
-    <p>None of this needs shouting, slammed doors or a dramatic exit. Drama is expensive. These are cheap.</p>
+    <p class="label">Part 3 · Translation service</p>
+    <h2>The relative decoder</h2>
+    <p>Tap a question. See what was said, what was probably meant, the honest answer, and what saying it may cost you.</p>
   </div>
   <div class="stack">
-    <div class="field"><span class="label">T1 · Sort everything into three piles</span><div class="body">
+    <div class="chips" id="chips" role="group" aria-label="Questions you get asked"></div>
+    <div class="field">
+      <div class="decode" aria-live="polite">
+        <div class="row"><span class="label">What they said</span><p id="d-said" style="font-weight:600;font-size:19px"></p></div>
+        <div class="row"><span class="label">What they probably meant</span><p id="d-meant"></p></div>
+        <div class="row"><span class="label">The honest answer</span><p class="hand" id="d-say"></p><p class="gloss" id="d-gloss"></p></div>
+        <div class="row"><span class="label">What it may cost</span><p id="d-cost"></p></div>
+      </div>
+    </div>
+    <p class="gloss"><i class="t n" style="margin-left:0">Not sure</i> "What they meant" is a guess. Some people mean exactly what they say. We also have no evidence that the honest answer works better than a polite dodge. It is only more true.</p>
+  </div>
+</section>
+
+<!-- WHAT TO DO -->
+<section id="what-to-do">
+  <div class="sec-head">
+    <p class="label">Part 4 · Works at any age</p>
+    <h2>What you can actually do</h2>
+    <p>Non-violent does not mean painless. Some of this will hurt, and some people will stay upset.</p>
+  </div>
+  <div class="stack">
+    <div class="field"><span class="label">W1 · Sort everything into three piles</span><div class="body">
       <div class="piles">
-        <div><p><b>Not up for vote</b></p><p>Your safety, your body, who you marry, whether you have children, your basic dignity.</p></div>
-        <div><p><b>Open to a deal</b></p><p>Timing, city, how big the wedding is, how often you visit, which rituals you keep.</p></div>
-        <div><p><b>Let them win</b></p><p>The kurta at Diwali. The photo with the whole family. The second helping. Small wins for them buy big room for you.</p></div>
+        <div><p><b>Not up for vote</b></p><p>Your safety, your body, who you marry, whether you have children, your dignity.</p></div>
+        <div><p><b>Open to a deal</b></p><p>Timing, city, the size of the wedding, how often you visit, which rituals you keep.</p></div>
+        <div><p><b>Give freely</b></p><p>The kurta at Diwali, the family photo, the second helping. Give these because you love them. If you give them as payment for freedom, you have started an account.</p></div>
       </div>
     </div></div>
-    <div class="field"><span class="label">T2 · Six habits</span><div class="body"><ol>
-      <li><b>Answer the fear, skip the question.</b> "Shaadi kab?" means "will you be alone?" Reply to that one.</li>
-      <li><b>Agree with the feeling, keep your plan.</b> "You're right to worry. Here is what I'm doing about it."</li>
-      <li><b>Talk in private.</b> Nobody changes their mind in front of an audience. Correct an elder in public and you have created a second problem.</li>
-      <li><b>Find one ally.</b> Every family has one reasonable mausi or chacha. Convince one person and let them convince the rest.</li>
-      <li><b>Use humour as a door.</b> A joke lets everybody leave the topic with their respect intact. Aim it at the situation, never at the person.</li>
-      <li><b>Repeat calmly.</b> The same kind sentence, said the fifth time in the same tone, works better than a new argument each time.</li>
+    <div class="field"><span class="label">W2 · What tends to help <i class="t o">Seen often</i></span><div class="body"><ol>
+      <li><b>Your own income.</b> The least romantic item and the most reliable.</li>
+      <li><b>One true sentence, said plainly, once, in private.</b> Then stop arguing it.</li>
+      <li><b>One ally in the family.</b> Let them carry the message where you cannot.</li>
+      <li><b>Distance.</b> Moving cities often changes more than any conversation.</li>
+      <li><b>Time, in years.</b> Many families adjust to a fact they refused as an idea.</li>
+      <li><b>Keep showing up.</b> Festivals, hospital visits, phone calls. Disagreeing and disappearing are different things.</li>
+      <li><b>Help for yourself.</b> A counsellor or a friend who listens. You cannot change them. You can be less alone while they stay the same.</li>
     </ol></div></div>
+    <div class="field"><span class="label">W3 · What usually does not work <i class="t o">Seen often</i></span><div class="body"><ul>
+      <li><b>Sweet talk.</b> It ends the conversation. It does not change the belief.</li>
+      <li><b>Winning with facts.</b> Nobody was argued into this and nobody gets argued out. That includes the statistics on this page.</li>
+      <li><b>Ultimatums you will not carry out.</b></li>
+      <li><b>Lying to keep the peace.</b> It works for a while. The bill arrives later, with interest.</li>
+      <li><b>Waiting for approval before you live.</b> Some approvals never come.</li>
+      <li><b>Humiliating an elder in public.</b> You win the room and lose the person.</li>
+    </ul></div></div>
+    <div class="field"><span class="label">W4 · What it can cost</span><div class="body"><ul>
+      <li>Silence, for months or years.</li>
+      <li>Money, a room, or an inheritance withdrawn.</li>
+      <li>Being left out of weddings and funerals.</li>
+      <li>Being talked about by people you grew up with.</li>
+      <li>A guilt that shrinks but may never fully leave.</li>
+      <li><b>And the cost of not choosing:</b> resentment, and a life arranged for four people who will not be there at the end of it.</li>
+    </ul>
+    <p><i class="t n" style="margin-left:0">Not sure</i> We found no data on how often families come round, or how long it takes. Anyone who tells you "they always accept in the end" is guessing.</p>
+    </div></div>
     <div class="help">
-      <h3>When it stops being pressure</h3>
-      <p>Everything above is for nagging, comparison and guilt. It is not for being hit, locked in, threatened, having your documents taken, or being forced into a marriage. That is harm, and humour is the wrong tool. Tell someone outside the house and call for help. If the pressure has brought you to thoughts of ending your life, please call too. People pick up.</p>
+      <h3>When it is not pressure any more</h3>
+      <p>Everything above is for nagging, comparison and guilt. It is not for being hit, locked in, threatened, having your documents taken, or being forced into a marriage. That is harm. Tell someone outside the house and call for help. If the pressure has brought you to thoughts of ending your life, please call too.</p>
       <div class="nums">
         <b>112</b><span>Emergency, anywhere in India</span>
-        <b>14416</b><span>Tele-MANAS, free mental health line, 24 hours</span>
+        <b>14416</b><span>Tele-MANAS, free mental health line, 24 hours, 20 languages</span>
         <b>181</b><span>Women's helpline</span>
         <b>1098</b><span>Childline, if you are under 18</span>
       </div>
+      <p class="gloss"><i class="t n" style="margin-left:0">Not sure</i> We have not tested these lines. How quickly they answer, and how good the help is, varies by state. If one does not pick up, try another, and tell a person you trust.</p>
     </div>
   </div>
 </section>
@@ -423,39 +613,70 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
 <!-- OUT LOUD -->
 <section id="out-loud">
   <div class="sec-head">
-    <p class="label">Part 4 · The controversial page</p>
+    <p class="label">Part 5 · The controversial page</p>
     <h2>Things nobody says out loud</h2>
-    <p>Some of these will annoy your parents. Some will annoy you. That is how you know the list is fair.</p>
+    <p>Some of these will annoy your parents. Some will annoy you.</p>
   </div>
   <ol class="rules">
-    <li><div><h3>Your parents are right about some of it</h3><p>Savings, health, showing up for family, not burning bridges. Old advice is not automatically a cage. Keep what works.</p></div></li>
-    <li><div><h3>Rebellion can be a script too</h3><p>Quit the job, travel, start up, post about it. If you are doing it because your feed expects it, you have only changed which four people you obey.</p></div></li>
-    <li><div><h3>Freedom without income is a debate</h3><p>You can win every argument at home and still need to ask for rent. Build the money first. Then the conversation is between equals.</p></div></li>
-    <li><div><h3>We are more modern in surveys than in weddings</h3><p>Most young Indians say caste should not matter in marriage. Almost all of us still marry inside it. Nobody is lying. Saying it costs nothing, and doing it can cost you your family. Be gentle with people stuck in that gap, yourself included.</p></div></li>
-    <li><div><h3>Sons and daughters are squeezed by the same machine</h3><p>She is told what she may not do. He is told what he must provide. In one large survey, nearly nine in ten Indians agreed a wife must always obey her husband, and women agreed almost as often as men. It is not men against women. It is everybody against an old rulebook.</p></div></li>
-    <li><div><h3>Where you were born sets the difficulty level</h3><p>In that same survey, about a third of people in Tamil Nadu and Karnataka fully agreed with the "obey" line. In Uttar Pradesh and Bihar it was about four in five. Same country, different game settings. Do not judge someone's choices until you know what level they are playing on.</p></div></li>
-    <li><div><h3>There is no villain</h3><p>The aunty, the uncle, your father, you. Everyone is doing what was done to them, mostly out of love and fear. That is why this can end without anybody losing.</p></div></li>
+    <li><div><h3>Your parents are right about some of it</h3><p>Savings, health, showing up for family. Old advice is not automatically a cage.</p></div></li>
+    <li><div><h3>You may be the one who is wrong</h3><p>Wanting something badly does not make it wise. Some of the choices you defend at 24 you will wince at by 34. Choose anyway, and leave room to say "I was wrong".</p></div></li>
+    <li><div><h3>Rebellion can be a script too</h3><p>Quit, travel, start up, post. If your feed expects it, you have only changed which four people you obey.</p></div></li>
+    <li><div><h3>Freedom without income is a debate</h3><p>You can win every argument at home and still have to ask for rent.</p></div></li>
+    <li><div><h3>Honesty is cheaper for some people</h3><p>A salaried man in a metro can say things that would cost a 19-year-old woman in a small town her education or her safety. Do not preach courage to someone whose price is higher than yours.</p></div></li>
+    <li><div><h3>We are more modern in surveys than in weddings</h3><p>Most young Indians say caste should not matter in marriage. Almost all still marry inside it. Saying it costs nothing. Doing it can cost a family.</p></div></li>
+    <li><div><h3>Sons and daughters are squeezed by one machine</h3><p>She is told what she may not do. He is told what he must provide. Women agree with the "wife must obey" line almost as often as men do. It is everybody against an old rulebook.</p></div></li>
+    <li><div><h3>Where you were born sets the difficulty</h3><p>About a third of people in Tamil Nadu and Karnataka fully agree a wife must always obey. In Uttar Pradesh and Bihar it is about four in five. <i class="t s">Survey</i> Do not judge someone's choices until you know what level they are playing on.</p></div></li>
+    <li><div><h3>Love that is counted becomes debt</h3><p>"Humne tumhare liye kitna kiya" is an invoice. So is "I gave up my dreams for them." Both sides keep accounts, and both are poorer for it. What your parents gave cannot be repaid, and it was never meant to be. It can only be passed on.</p></div></li>
+    <li><div><h3>Some of it will not get better</h3><p>Some parents will die still disappointed. Some children will die still unforgiven. Nobody is the villain, and people get hurt anyway. You can do everything on this page gently and correctly, and still lose someone.</p></div></li>
   </ol>
+</section>
+
+<!-- DON'T KNOW -->
+<section id="dont-know">
+  <div class="sec-head">
+    <p class="label">Part 6 · Declaration of ignorance</p>
+    <h2>What this page does not know</h2>
+    <p>Listed plainly, so you can weigh everything above.</p>
+  </div>
+  <div class="field"><div class="body"><ul>
+    <li><b>Whether any of the advice works.</b> There is no study behind Part 4. It is common experience, written down.</li>
+    <li><b>How often families come round,</b> and after how long.</li>
+    <li><b>Villages.</b> The main youth survey we used interviewed 4,500 urban and 1,500 rural young people. Most Indians live in villages. Our village notes are the weakest part of this page.</li>
+    <li><b>The North-East, Kashmir, Ladakh and the islands.</b> The surveys cover the 18 biggest states or skip some regions. We know very little here.</li>
+    <li><b>Life as a Dalit, Adivasi or religious-minority young person.</b> The pressures are not the same, and we have not described them properly.</li>
+    <li><b>Queer and trans lives.</b> Mentioned, not understood.</li>
+    <li><b>Disability.</b> Not covered at all. Expectations of disabled young people are a separate and serious subject.</li>
+    <li><b>Indians abroad.</b> Every "Abroad" line is from accounts we have read, not data.</li>
+    <li><b>How old the numbers are.</b> The gender-attitudes survey is from 2019-20. The youth survey is from 2021. The caste and marriage data is from 2011-12. Attitudes may have moved.</li>
+    <li><b>What people really think.</b> Surveys record what people say to an interviewer. That is not always what they do.</li>
+    <li><b>The law.</b> We are not lawyers. Laws and court rulings change. Check before you act.</li>
+    <li><b>Your family.</b> You know it. We don't.</li>
+  </ul></div></div>
 </section>
 
 <!-- NUMBERS -->
 <section id="numbers">
   <div class="sec-head">
     <p class="label">Annexure I · Supporting documents</p>
-    <h2>The numbers behind the jokes</h2>
-    <p>Surveys of thousands of people. Your own family may be very different.</p>
+    <h2>The numbers</h2>
+    <p>Everything tagged Survey comes from here. Where we used a news report of a survey and not the original, the link shows that.</p>
   </div>
   <div class="tablewrap" role="region" aria-label="Survey figures" tabindex="0">
     <table>
-      <thead><tr><th>Figure</th><th>What it measures</th><th>Source</th></tr></thead>
+      <thead><tr><th>Figure</th><th>What it measures</th><th>Source and year</th></tr></thead>
       <tbody>
-        <tr><td class="n">61%</td><td>Young Indians (15–34) who worry about their family's financial security, their top worry</td><td><a href="https://issuu.com/ishtihaar/docs/youth_report-final/s/14816139">Lokniti-CSDS, 2021</a></td></tr>
-        <tr><td class="n">61% vs 5%</td><td>Youth who support inter-caste marriage, against the share of marriages that are inter-caste</td><td><a href="https://issuu.com/ishtihaar/docs/youth_report-final/s/14816139">Lokniti-CSDS</a>, <a href="https://www.ncaer.org/news/just-5-of-indian-marriages-are-inter-caste-survey">IHDS / NCAER</a></td></tr>
-        <tr><td class="n">84%</td><td>Married youth who said their marriage was arranged by parents</td><td><a href="https://www.taylorfrancis.com/books/9780367142049/chapters/10.4324/9780367142049-6">Lokniti-CSDS, 2016 data</a></td></tr>
-        <tr><td class="n">87%</td><td>Indian adults who agree a wife must always obey her husband</td><td><a href="https://www.pewresearch.org/religion/2022/03/02/gender-roles-in-the-family/">Pew Research, 2022</a></td></tr>
-        <tr><td class="n">36% / 82%</td><td>People who completely agree with that line in Tamil Nadu, and in Uttar Pradesh</td><td><a href="https://www.pewresearch.org/religion/2022/03/02/gender-roles-in-the-family/">Pew Research, 2022</a></td></tr>
+        <tr><td class="n">61%</td><td>Young Indians (15–34) worried about their family's financial security, the top worry. 54% worry about appearance.</td><td><a href="https://issuu.com/ishtihaar/docs/youth_report-final/s/14816139">Lokniti-CSDS, 2021</a></td></tr>
+        <tr><td class="n">61% vs 5%</td><td>Youth who support inter-caste marriage, against marriages that are inter-caste</td><td><a href="https://issuu.com/ishtihaar/docs/youth_report-final/s/14816139">Lokniti-CSDS, 2021</a>; <a href="https://www.ncaer.org/news/just-5-of-indian-marriages-are-inter-caste-survey">IHDS, 2011-12</a></td></tr>
+        <tr><td class="n">84%</td><td>Married youth whose marriage was arranged by parents</td><td><a href="https://www.taylorfrancis.com/books/9780367142049/chapters/10.4324/9780367142049-6">Lokniti-CSDS, 2016</a></td></tr>
+        <tr><td class="n">87%</td><td>Adults who agree a wife must always obey her husband. Fully agree: Tamil Nadu 36%, Uttar Pradesh 82%.</td><td><a href="https://www.pewresearch.org/religion/2022/03/02/gender-roles-in-the-family/">Pew Research, surveyed 2019-20</a></td></tr>
+        <tr><td class="n">4 in 10 vs 2%</td><td>Say sons, or daughters, should mainly care for ageing parents</td><td><a href="https://www.pewresearch.org/religion/2022/03/02/gender-roles-in-the-family/">Pew Research, surveyed 2019-20</a></td></tr>
+        <tr><td class="n">20.1%</td><td>Women aged 20–24 married before 18. Rural 23.3%, urban 11.4%.</td><td><a href="https://scroll.in/article/1093632/scroll_in">NFHS-6, 2023-24, via Scroll</a></td></tr>
+        <tr><td class="n">289 vs 88</td><td>Minutes a day on unpaid housework, women against men</td><td><a href="https://www.businesstoday.in/india/story/time-use-survey-women-take-on-most-of-household-and-caregiving-work-465946-2025-02-25">Time Use Survey 2024, via Business Today</a></td></tr>
+        <tr><td class="n">83% · 29%</td><td>Youth share of India's unemployed, and unemployment rate among young graduates</td><td><a href="https://thewire.in/economy/ilo-report-work-unemployment-india">ILO-IHD India Employment Report, 2022 data, via The Wire</a></td></tr>
+        <tr><td class="n">14,488</td><td>Students who died by suicide in 2024</td><td><a href="https://news.careers360.com/student-suicide-ncrb-report-2026-rise-80-pc-10-years-1000-under-18-jobs-unemployment-exam-mental-health-school-higher-education">NCRB, via Careers360</a></td></tr>
+        <tr><td class="n">about 85%</td><td>People with a mental health condition who get no treatment</td><td><a href="https://www.theweek.in/news/health/2025/12/11/why-are-mental-health-services-still-out-of-reach-for-millions-in-india.html">National Mental Health Survey 2015-16, via The Week</a></td></tr>
         <tr><td class="n">7 in 10</td><td>Teenage girls who want to finish graduation</td><td><a href="https://indiaspend.com/7-in-10-teenage-indian-girls-want-to-graduate-3-in-4-have-career-plan-new-survey/">Naandi TAG report, via IndiaSpend</a></td></tr>
-        <tr><td class="n">14,488</td><td>Students who died by suicide in 2024. The reason the marks section should be taken seriously</td><td><a href="https://news.careers360.com/student-suicide-ncrb-report-2026-rise-80-pc-10-years-1000-under-18-jobs-unemployment-exam-mental-health-school-higher-education">NCRB, via Careers360</a></td></tr>
+        <tr><td class="n">30 days</td><td>Public notice required before a Special Marriage Act wedding</td><td><a href="https://www.livelaw.in/articles/special-marriage-act-30day-notice-530830">LiveLaw, 2026</a></td></tr>
       </tbody>
     </table>
   </div>
@@ -464,28 +685,31 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
 <!-- DECLARATION -->
 <section id="declaration" style="border-bottom:0">
   <div class="sec-head">
-    <p class="label">Part 5 · To be signed by the applicant</p>
-    <h2>Declaration</h2>
-    <p>I understand that I am somebody's "log". I therefore declare that:</p>
+    <p class="label">Part 7 · To be signed by the applicant</p>
+    <h2>Alone, and not alone</h2>
   </div>
-  <div class="field"><div class="body">
-    <ul class="pledge">
-      <li><label for="p1"><input type="checkbox" id="p1"><span>I will not ask anyone younger than me about their marks, package, weight, wedding or womb.</span></label></li>
-      <li><label for="p2"><input type="checkbox" id="p2"><span>When a friend makes an unusual choice, I will ask "how can I help?" before "are you sure?"</span></label></li>
-      <li><label for="p3"><input type="checkbox" id="p3"><span>I will thank my parents for the map, and then tell them kindly where the roads have moved.</span></label></li>
-      <li><label for="p4"><input type="checkbox" id="p4"><span>I will remember that the aunty, the uncle and I are the same person at different ages.</span></label></li>
-    </ul>
-    <div class="sign">
-      <div class="line"><span class="hand" id="signed">sign here, in your head</span></div>
-      <div class="stampbox" style="transform:rotate(3deg)">Approved<br>by yourself</div>
-    </div>
-  </div></div>
+  <div class="stack">
+    <p class="quiet">You came into this alone and you will leave it alone. In between, a few people will walk with you. Some because they chose to, some because they were born next to you. None of them owes you agreement, and you do not owe them your life. What you can give each other is company on the road, and that is not a small thing. Do not weigh it. Do not keep score. Just don't waste it.</p>
+    <div class="field"><span class="label">I therefore declare that</span><div class="body">
+      <ul class="pledge">
+        <li><label for="p1"><input type="checkbox" id="p1"><span>I will not ask anyone younger than me about their marks, package, weight, wedding or womb.</span></label></li>
+        <li><label for="p2"><input type="checkbox" id="p2"><span>I will say the true thing, once, kindly, and accept that it may change nothing.</span></label></li>
+        <li><label for="p3"><input type="checkbox" id="p3"><span>I will stop keeping accounts of what I was given and what I gave.</span></label></li>
+        <li><label for="p4"><input type="checkbox" id="p4"><span>I will keep showing up for people who disagree with how I live.</span></label></li>
+        <li><label for="p5"><input type="checkbox" id="p5"><span>I will remember that the aunty, the uncle and I are the same person at different ages.</span></label></li>
+      </ul>
+      <div class="sign">
+        <div class="line"><span class="hand" id="signed">sign here, in your head</span></div>
+        <div class="stampbox" style="transform:rotate(3deg)">No approval<br>required</div>
+      </div>
+    </div></div>
+  </div>
 </section>
 
 </main>
 
 <footer class="wrap">
-  <p>This is a friendly guide, not professional advice. The figures are from published surveys and the jokes are from every Indian family ever. Further reading:</p>
+  <p>A friendly guide, not professional advice. Drafted with AI help and not expert-reviewed. If you find something wrong or missing, it probably is. Further reading:</p>
   <ul>
     <li><a href="https://issuu.com/ishtihaar/docs/youth_report-final/s/14816139">Lokniti-CSDS and KAS, Indian Youth: Aspirations and Vision for the Future</a></li>
     <li><a href="https://rohininilekaniphilanthropies.org/?p=2577">Rohini Nilekani Philanthropies, Checking in on young men and boys in urban India</a></li>
@@ -498,49 +722,58 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
 (function(){
   var items=[
     {q:"Shaadi kab kar rahe ho?",
-     m:"I want to know you won't end up alone. Also, I need something to report back to my own four people.",
-     s:"“Jab hogi, pehla card aapka. Tab tak aashirwad chalu rakhiye.”",
-     g:"When it happens, the first card is yours. Until then, keep the blessings coming."},
+     m:"I want to know you won't end up alone. Also, I need something to report to my own four people.",
+     s:"“Pata nahi. Aur yeh sawaal band karne ke liye main shaadi nahi karunga.”",
+     g:"I don't know. And I won't marry just to make this question stop.",
+     c:"She will ask again at the next wedding. No reply ends it. What can end is your need for it to end."},
     {q:"Kitna package hai?",
      m:"Are you safe? And, quietly, how is my own child doing compared with you?",
-     s:"“Kharcha nikal jaata hai aur neend achhi aati hai. Aapke ghutne kaise hain?”",
-     g:"It covers my expenses and I sleep well. How are your knees?"},
+     s:"“Theek hai. Number nahi bataunga. Usse hum dono mein se koi khush nahi hoga.”",
+     g:"It's fine. I won't share the number. It won't make either of us happier.",
+     c:"You will be called secretive or proud. If you do share it, you will be ranked. Pick the one you can live with."},
     {q:"Sharma ji ka beta dekho.",
      m:"I am scared I did not do enough for you.",
-     s:"“Sharma ji ka beta bahut achha hai. Par aapka wala aapke saath chai peeta hai.”",
-     g:"Sharma ji's son is great. But yours sits and has tea with you."},
+     s:"“Main woh nahi hoon. Compare karne se main woh nahi banunga. Bas aapse door ho jaunga.”",
+     g:"I'm not him. Comparing won't turn me into him. It will only push me away from you.",
+     c:"It may land as answering back. Some parents hear this only years later. Some never do."},
     {q:"Itni raat tak bahar?",
      m:"I cannot protect you out there, and that frightens me.",
-     s:"“Live location bhej di hai. Ghar pahunchte hi call, pakka.”",
-     g:"I've sent my live location. I'll call the minute I'm home, promise."},
+     s:"“Aapka darr sahi hai. Par main ghar mein band hoke nahi jee sakti. Yeh mera plan hai.”",
+     g:"Your fear is real. But I can't live locked indoors. Here is my plan.",
+     c:"They will still not sleep until you are home. Your freedom costs them worry. And the streets are not equally safe for everyone. All of that is true at once."},
     {q:"Good news kab?",
-     m:"I would like to be a grandparent while my knees still work.",
-     s:"“Good news yeh hai ki hum khush hain. Baaki bulletin baad mein.”",
-     g:"The good news is that we're happy. The rest of the bulletin comes later."},
+     m:"I would like to be a grandparent while I still can.",
+     s:"“Hum abhi bachcha nahi chahte. Shayad kabhi nahi. Kuch hoga toh bataenge.”",
+     g:"We don't want a child right now. Maybe never. If there is news, we will tell you.",
+     c:"Someone will be hurt, and may stay hurt. A child born to end that hurt gets a worse deal than anyone."},
     {q:"Sarkari naukri ki taiyari kar lo.",
-     m:"I have watched private jobs vanish overnight. I want you to have a floor under your feet.",
-     s:"“Floor chahiye, samajh gaya. Mera floor hai chhe mahine ki savings aur ek skill jo bikti hai.”",
-     g:"You want me to have a floor, understood. Mine is six months of savings and a skill that sells."},
+     m:"I have watched private jobs vanish overnight. I want you to have a floor.",
+     s:"“Yeh aapka sapna hai, mera nahi. Apna rasta main chununga, aur risk bhi main uthaunga.”",
+     g:"That is your dream, not mine. I'll choose my road and carry the risk myself.",
+     c:"If it goes badly you will hear ‘I told you so’ for years, and some of it will be fair."},
     {q:"Kitne mote / patle ho gaye!",
      m:"I noticed you. I do not have a better opening line.",
-     s:"“Haan, khushi mein. Aap bataiye, aap kaise hain?”",
-     g:"Yes, from happiness. Tell me, how are you?"},
+     s:"“Mere shareer pe comment mat kijiye. Mujhe bura lagta hai.”",
+     g:"Please don't comment on my body. It hurts.",
+     c:"Ten seconds of silence, and you get called sensitive. Often they stop. Not always."},
     {q:"Apni community mein hi karna.",
      m:"I am afraid of losing you to a world whose rules I don't know. And of what my people will say.",
-     s:"“Aapko insaan pasand aana chahiye, yeh meri bhi shart hai. Ek baar milke toh dekhiye.”",
-     g:"You should like the person. That's my condition too. Just meet them once."},
+     s:"“Main usse shaadi karunga jisse pyaar karta hoon. Chahta hoon aap saath ho. Par aapke bina bhi karunga.”",
+     g:"I will marry the person I love. I want you with me. But I will do it without you if I must.",
+     c:"The costliest sentence on this page. Some families come round in a year, some in ten, some never. In some places it is unsafe to say at all. Read the help box first."},
     {q:"Humne tumhare liye kitna kiya.",
      m:"Please don't leave us behind.",
-     s:"“Pata hai. Isiliye jo bhi karunga, aapko saath leke karunga.”",
-     g:"I know. That's why whatever I do, I'll take you along."}
+     s:"“Haan, kiya. Main shukraguzaar hoon. Par main karz nahi hoon, aur pyaar ka hisaab nahi hota.”",
+     g:"Yes, you did. I am grateful. But I am not a debt, and love is not an account.",
+     c:"It can sound ungrateful and it will hurt them. If it is true, say it once, gently. Then keep showing up."}
   ];
   var chips=document.getElementById('chips');
   var said=document.getElementById('d-said'),meant=document.getElementById('d-meant'),
-      say=document.getElementById('d-say'),gloss=document.getElementById('d-gloss');
+      say=document.getElementById('d-say'),gloss=document.getElementById('d-gloss'),cost=document.getElementById('d-cost');
   function show(i){
     var it=items[i];
     said.textContent='“'+it.q+'”';
-    meant.textContent=it.m; say.textContent=it.s; gloss.textContent=it.g;
+    meant.textContent=it.m; say.textContent=it.s; gloss.textContent=it.g; cost.textContent=it.c;
     var bs=chips.querySelectorAll('button');
     for(var k=0;k<bs.length;k++){bs[k].setAttribute('aria-pressed',k===i?'true':'false');}
   }
@@ -552,11 +785,10 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
   });
   show(0);
 
-  // Declaration: when all four boxes are ticked, the signature fills in.
   var boxes=document.querySelectorAll('.pledge input'),signed=document.getElementById('signed');
   function check(){
     var all=true; for(var k=0;k<boxes.length;k++){ if(!boxes[k].checked) all=false; }
-    signed.textContent=all?'Signed. Welcome to the other side.':'sign here, in your head';
+    signed.textContent=all?'Signed.':'sign here, in your head';
   }
   for(var k=0;k<boxes.length;k++){boxes[k].addEventListener('change',check);}
 })();
