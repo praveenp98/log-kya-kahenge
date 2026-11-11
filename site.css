@@ -148,3 +148,18 @@ summary small{display:block;text-transform:none;letter-spacing:0;font-weight:400
 .tally{position:sticky;top:48px;z-index:5;background:var(--ink);color:var(--paper);padding:8px 14px;border-radius:0 0 4px 4px;font-weight:600;display:flex;justify-content:space-between;gap:10px;align-items:baseline}
 .tally b{font-family:var(--display);font-weight:400;font-size:24px;font-variant-numeric:tabular-nums}
 .grp{font-family:var(--body);font-weight:700;font-size:20px;margin:10px 0 0}
+
+/* Reading modes */
+body[data-mode="light"] [data-read="heavy"]{display:none}
+body[data-mode="heavy"] [data-read="light"]{display:none}
+.modes{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;padding:10px 0 0}
+.modes button{font:inherit;font-size:14px;font-weight:600;color:var(--ink);background:transparent;border:1.5px solid var(--rule);border-radius:999px;padding:4px 12px;cursor:pointer}
+.modes button[aria-pressed="true"]{background:var(--marker);color:var(--on-marker);border-color:var(--marker)}
+.modes .gloss{flex:1 1 100%}
+/* Way in */
+.pick{display:flex;flex-direction:column;gap:6px}
+.way dl{margin:0;display:grid;gap:10px}
+.way dt{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.way dd{margin:0}
+.way dd ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:5px}
+.way .go{font-family:var(--display);font-size:24px;line-height:1.15}

@@ -16,14 +16,14 @@
     <span>Form LKK-34</span>
     <span>For applicants aged 15 to 34</span>
   </div>
-  <div class="pages"><a class="on" href="index.html">Form A · Expectations</a><a href="status.html">Form B · Status games</a></div>
+  <div class="pages"><a class="on" href="index.html">Form A · Expectations</a><a href="status.html">Form B · Status games</a><a href="choices.html">Form C · Choices</a></div>
 
   <header class="hero">
     <p class="deva" lang="hi">लोग क्या कहेंगे?</p>
     <h1>Application for permission to live <em>your own life</em></h1>
     <p class="lede">Permission is not actually required. Nobody tells you that, and nobody hands you the rulebook either. This is an attempt at the rulebook: what India expects of you between 15 and 34, why, how it changes with where you live, and what you can do without violence. It will not make anyone agree with you. It may make you less confused.</p>
     <div class="stampbox">Attested by<br>four people</div>
-    <div class="stack" style="gap:8px">
+    <div class="stack" style="gap:8px" data-read="light">
       <p class="label">Every language has this sentence</p>
       <ul class="tongues">
         <li><b>Log kya kahenge</b><span>Hindi, Urdu</span></li>
@@ -44,6 +44,7 @@
 
 <nav class="jump" aria-label="Sections">
   <div class="wrap">
+    <a href="#start">Start here</a>
     <a href="#gaps">At a glance</a>
     <a href="#read-first">Read first</a>
     <a href="#how-it-works">How it works</a>
@@ -61,6 +62,30 @@
 </nav>
 
 <main class="wrap">
+
+<!-- WAY IN -->
+<section id="start">
+  <div class="sec-head">
+    <p class="label">Start here</p>
+    <h2>Find your page</h2>
+    <p>Three taps. We show you where to begin.</p>
+  </div>
+  <div class="stack way">
+    <div class="pick"><span class="label">Your age</span><div class="chips" id="pk-age" role="group" aria-label="Your age"></div></div>
+    <div class="pick"><span class="label">You are</span><div class="chips" id="pk-sex" role="group" aria-label="You are"></div></div>
+    <div class="pick"><span class="label">You live in</span><div class="chips" id="pk-place" role="group" aria-label="You live in"></div></div>
+    <div class="field"><div class="body" aria-live="polite">
+      <dl>
+        <div><dt>Begin with</dt><dd><a class="go" id="w-go" href="#age-19-24"></a></dd></div>
+        <div><dt>What you are probably hearing</dt><dd><ul id="w-list"></ul></dd></div>
+        <div><dt>Where you live</dt><dd id="w-place"></dd></div>
+        <div data-read="heavy"><dt>The honest part</dt><dd id="w-honest"></dd></div>
+        <div><dt>Then read</dt><dd id="w-next"></dd></div>
+      </dl>
+      <p class="gloss"><i class="t n" style="margin-left:0">Not sure</i> Three taps cannot know your family. Treat this as a starting point.</p>
+    </div></div>
+  </div>
+</section>
 
 <!-- GAPS -->
 <section id="gaps">
@@ -87,7 +112,7 @@
 </section>
 
 <!-- READ FIRST -->
-<section id="read-first">
+<section id="read-first" data-read="heavy">
   <div class="sec-head">
     <p class="label">Part 0 · Read before filling</p>
     <h2>How honest this form is</h2>
@@ -154,7 +179,7 @@
 </section>
 
 <!-- FULL LIST -->
-<section id="full-list">
+<section id="full-list" data-read="heavy">
   <div class="sec-head">
     <p class="label">Part 2 · Schedule of expectations</p>
     <h2>The full list</h2>
@@ -286,7 +311,7 @@
     <p>You have the least power you will ever have and the most people checking on you.</p>
   </div>
   <div class="stack">
-    <div class="field"><span class="label">A1 · What you will be asked</span><div class="body"><ul>
+    <div class="field" data-read="light"><span class="label">A1 · What you will be asked</span><div class="body"><ul>
       <li>"Kitne percent aaye?"</li>
       <li>"Science liya na?"</li>
       <li>"Phone rakh do. Sharma ji ka beta dekho."</li>
@@ -296,7 +321,7 @@
       <p>For most families, education is the only lift that goes up. Your parents fear you getting stuck, and marks are the only dial they know how to read. <i class="t o">Seen often</i></p>
       <p>"Life set hai" after the entrance exam is not true. The questions only change. Nobody is lying to you. They were told the same thing.</p>
     </div></div>
-    <div class="field"><span class="label">A3 · Where you live changes it</span><div class="places">
+    <div class="field" data-read="light"><span class="label">A3 · Where you live changes it</span><div class="places">
       <div><b>Metro</b><span>Coaching from class 8. Compared with the whole apartment WhatsApp group. <i class="t o">Seen often</i></span></div>
       <div><b>Small city</b><span>Three approved careers. A coaching hub in another city is sold as the only way out. <i class="t o">Seen often</i></span></div>
       <div><b>Village</b><span>Staying in school can be the fight, more so for girls. Seven in ten teenage girls say they want to finish graduation. <i class="t s">Survey</i> What daily life is like village to village, we cannot say. <i class="t n">Not sure</i></span></div>
@@ -308,7 +333,7 @@
       <li><b>Borrow an adult.</b> A teacher, older cousin or mama can say your sentence in a voice your parents trust.</li>
       <li><b>Tell one person on the bad day.</b> One mark sheet is not your life. On the day it feels like it is, do not be alone with it.</li>
     </ol></div></div>
-    <div class="field"><span class="label">A5 · The honest part</span><div class="body">
+    <div class="field" data-read="heavy"><span class="label">A5 · The honest part</span><div class="body">
       <p>At 16 you often cannot win. You do not earn, you cannot leave, and the law treats you as a child. Sometimes the only real move is to get through these years with your mind intact and choose later. That is not giving up. It is waiting until you have a vote.</p>
     </div></div>
     <div class="pocket"><span class="label">A true line to keep</span>
@@ -326,7 +351,7 @@
     <p>The question changes from "how much did you score" to "how much do you earn".</p>
   </div>
   <div class="stack">
-    <div class="field"><span class="label">B1 · What you will be asked</span><div class="body"><ul>
+    <div class="field" data-read="light"><span class="label">B1 · What you will be asked</span><div class="body"><ul>
       <li>"Placement hua? Kitna package?"</li>
       <li>"Government job ki taiyari kar lo. Safe hai."</li>
       <li>"Itni door kyun jaana hai?" (asked more of daughters)</li>
@@ -336,7 +361,7 @@
       <p>Asked what worries them most, young Indians put their family's financial security first, ahead of their own health. <i class="t s">Survey</i> Your first salary is the safety net arriving.</p>
       <p>And the fear is not irrational. Jobs for graduates are short. Your parents are wrong about the cure, not about the disease.</p>
     </div></div>
-    <div class="field"><span class="label">B3 · Where you live changes it</span><div class="places">
+    <div class="field" data-read="light"><span class="label">B3 · Where you live changes it</span><div class="places">
       <div><b>Metro</b><span>The hustle script. Rent eats the salary. Loneliness is the bill nobody mentions. <i class="t o">Seen often</i></span></div>
       <div><b>Small city</b><span>Sarkari naukri is the gold standard, so years go into attempts. Relationships stay secret. <i class="t o">Seen often</i></span></div>
       <div><b>Village</b><span>Earn now. Many men migrate for work. For many women, the wedding arrives before the degree. <i class="t o">Seen often</i></span></div>
@@ -348,7 +373,7 @@
       <li><b>Tell them about your life in small doses.</b> Surprise is what turns a choice into a scandal.</li>
       <li><b>Find out what the family actually needs from you in rupees.</b> A vague duty is heavier than a number.</li>
     </ol></div></div>
-    <div class="field"><span class="label">B5 · The honest part</span><div class="body">
+    <div class="field" data-read="heavy"><span class="label">B5 · The honest part</span><div class="body">
       <p>Choosing your own road can mean being the family disappointment for years. Some parents come round once it works. Some come round and never say so. Some don't. And your road may fail. Then you will hear "I told you so", and part of it will be fair. That is the price of choosing, and it does not have a discount.</p>
     </div></div>
     <div class="pocket"><span class="label">A true line to keep</span>
@@ -366,7 +391,7 @@
     <p>Every wedding you attend becomes a public hearing on your own.</p>
   </div>
   <div class="stack">
-    <div class="field"><span class="label">C1 · What you will be asked</span><div class="body"><ul>
+    <div class="field" data-read="light"><span class="label">C1 · What you will be asked</span><div class="body"><ul>
       <li>"Shaadi kab kar rahe ho? Koi hai kya?"</li>
       <li>"Umar nikal rahi hai." (women hear it earlier and louder)</li>
       <li>"Settle ho gaye? Ghar liya?" (men hear this one)</li>
@@ -376,7 +401,7 @@
       <p>A marriage here joins two families, so everybody feels like a shareholder. Your parents also fear dying while you are alone. That fear is real and it is love.</p>
       <p>You are not late. The share of 15 to 34 year olds who are married fell 13 points between 2007 and 2021. <i class="t s">Survey</i></p>
     </div></div>
-    <div class="field"><span class="label">C3 · Where you live changes it</span><div class="places">
+    <div class="field" data-read="light"><span class="label">C3 · Where you live changes it</span><div class="places">
       <div><b>Metro</b><span>A dating app and a biodata running at once. Living alone questioned less. <i class="t o">Seen often</i></span></div>
       <div><b>Small city</b><span>The clock rings at 24 or 25 for women. A partner from another caste or religion is the hardest news to carry home. <i class="t o">Seen often</i></span></div>
       <div><b>Village</b><span>Many are already married. The questions are about children, earning, and whether a wife may work. <i class="t o">Seen often</i></span></div>
@@ -388,7 +413,7 @@
       <li><b>If your partner is not who they expect, go in order.</b> Income. A place to stay. One ally. Then tell them. Two adults can marry across caste or religion under the Special Marriage Act, but it requires a 30-day public notice, which can alert a family that objects. <i class="t s">Survey</i> Talk to a lawyer or a support group before you file. <i class="t n">Not sure</i> how the notice is handled in your district.</li>
       <li><b>If the script has no page for you</b>, because you are queer or do not want marriage, find your people before any announcement. Telling can wait until you are safe.</li>
     </ol></div></div>
-    <div class="field"><span class="label">C5 · The honest part</span><div class="body">
+    <div class="field" data-read="heavy"><span class="label">C5 · The honest part</span><div class="body">
       <p>Marrying your own choice can cost you your family for years, and in some cases for good. In some families and places it is physically dangerous. Marrying their choice to keep the peace also costs, and that bill is paid every day inside the marriage, by two people. There is no free option here. There is only the one whose price you can live with.</p>
     </div></div>
     <div class="pocket"><span class="label">A true line to keep</span>
@@ -406,7 +431,7 @@
     <p>"Ab toh kar lo." At least do it now. It fits marriage, baby, flat and second baby.</p>
   </div>
   <div class="stack">
-    <div class="field"><span class="label">D1 · What you will be asked</span><div class="body"><ul>
+    <div class="field" data-read="light"><span class="label">D1 · What you will be asked</span><div class="body"><ul>
       <li>"Good news kab de rahe ho?"</li>
       <li>"Ghar kab le rahe ho?"</li>
       <li>"Mummy-papa ko paas bula lo." Or: "Wapas aa jao."</li>
@@ -416,7 +441,7 @@
       <p>The roles are flipping. Your parents are ageing and you are becoming the safety net. Sons are named for this duty. Daughters often do the caring without the credit. <i class="t s">Survey</i></p>
       <p>On children, a 2026 UN survey found young Indians delay family mainly over money and unequal housework, not because they have stopped wanting one. <i class="t s">Survey</i></p>
     </div></div>
-    <div class="field"><span class="label">D3 · Where you live changes it</span><div class="places">
+    <div class="field" data-read="light"><span class="label">D3 · Where you live changes it</span><div class="places">
       <div><b>Metro</b><span>EMI, school fees, two jobs. Childcare still lands mostly on her. <i class="t o">Seen often</i></span></div>
       <div><b>Small city</b><span>Joint family negotiations: whose kitchen, whose rules. <i class="t o">Seen often</i></span></div>
       <div><b>Village</b><span>You are already a senior. The talk is of sons, land, and who must leave for work. <i class="t n">Not sure</i></span></div>
@@ -428,7 +453,7 @@
       <li><b>If you are single, live fully now.</b> Do not keep your life in a waiting room.</li>
       <li><b>Stop the chain going down.</b> Do not ask your 22-year-old cousin about her package.</li>
     </ol></div></div>
-    <div class="field"><span class="label">D5 · The honest part</span><div class="body">
+    <div class="field" data-read="heavy"><span class="label">D5 · The honest part</span><div class="body">
       <p>You cannot be the perfect child, partner, parent and employee in the same decade. Someone will be let down, and some days it will be the person you love most. Caring for ageing parents is heavy, and no reply on this page makes it lighter. Decide who you will let down, on purpose, instead of letting everyone down by accident.</p>
     </div></div>
     <div class="pocket"><span class="label">A true line to keep</span>
@@ -467,7 +492,7 @@
     <p>Non-violent does not mean painless. Some of this will hurt, and some people will stay upset.</p>
   </div>
   <div class="stack">
-    <div class="field"><span class="label">W1 · Sort everything into three piles</span><div class="body">
+    <div class="field" data-read="light"><span class="label">W1 · Sort everything into three piles</span><div class="body">
       <div class="piles">
         <div><p><b>Not up for vote</b></p><p>Your safety, your body, who you marry, whether you have children, your dignity.</p></div>
         <div><p><b>Open to a deal</b></p><p>Timing, city, the size of the wedding, how often you visit, which rituals you keep.</p></div>
@@ -483,7 +508,7 @@
       <li><b>Keep showing up.</b> Festivals, hospital visits, phone calls. Disagreeing and disappearing are different things.</li>
       <li><b>Help for yourself.</b> A counsellor or a friend who listens. You cannot change them. You can be less alone while they stay the same.</li>
     </ol></div></div>
-    <div class="field"><span class="label">W3 · What usually does not work <i class="t o">Seen often</i></span><div class="body"><ul>
+    <div class="field" data-read="heavy"><span class="label">W3 · What usually does not work <i class="t o">Seen often</i></span><div class="body"><ul>
       <li><b>Sweet talk.</b> It ends the conversation. It does not change the belief.</li>
       <li><b>Winning with facts.</b> Nobody was argued into this and nobody gets argued out. That includes the statistics on this page.</li>
       <li><b>Ultimatums you will not carry out.</b></li>
@@ -491,7 +516,7 @@
       <li><b>Waiting for approval before you live.</b> Some approvals never come.</li>
       <li><b>Humiliating an elder in public.</b> You win the room and lose the person.</li>
     </ul></div></div>
-    <div class="field"><span class="label">W4 · What it can cost</span><div class="body"><ul>
+    <div class="field" data-read="heavy"><span class="label">W4 · What it can cost</span><div class="body"><ul>
       <li>Silence, for months or years.</li>
       <li>Money, a room, or an inheritance withdrawn.</li>
       <li>Being left out of weddings and funerals.</li>
@@ -516,7 +541,7 @@
 </section>
 
 <!-- OUT LOUD -->
-<section id="out-loud">
+<section id="out-loud" data-read="heavy">
   <div class="sec-head">
     <p class="label">Part 5 · The controversial page</p>
     <h2>Things nobody says out loud</h2>
@@ -537,7 +562,7 @@
 </section>
 
 <!-- DON'T KNOW -->
-<section id="dont-know">
+<section id="dont-know" data-read="heavy">
   <div class="sec-head">
     <p class="label">Part 6 · Declaration of ignorance</p>
     <h2>What this page does not know</h2>
@@ -560,7 +585,7 @@
 </section>
 
 <!-- NUMBERS -->
-<section id="numbers">
+<section id="numbers" data-read="heavy">
   <div class="sec-head">
     <p class="label">Annexure I · Supporting documents</p>
     <h2>The numbers</h2>
@@ -698,5 +723,72 @@
   for(var k=0;k<boxes.length;k++){boxes[k].addEventListener('change',check);}
 })();
 </script>
+<script>
+(function(){
+  var A={
+   '15-18':{n:'Section A · The marks years',id:'age-15-18',
+     all:['“Kitne percent aaye?”','Science, then engineering or medicine','Coaching, and comparison with someone’s son'],
+     w:['Home before dark, and new rules about clothes','In some homes, talk of marriage before school is done'],
+     m:['You will be the earner one day, so no room to fail','Don’t cry, don’t ask for help'],
+     h:'At 16 you often cannot win yet. Getting through these years with your mind intact is a real strategy.',
+     p:{metro:'Coaching from class 8, and the whole apartment group as your comparison set.',city:'Three approved careers, and a coaching hub in another city sold as the only way out.',village:'Staying in school can itself be the fight, more so for girls.',abroad:'“We moved here for you.” The sacrifice arrives as an invoice.'},
+     g:'the Marks, Tag and Children games',c:'Telling, hiding or half-telling'},
+   '19-24':{n:'Section B · The package years',id:'age-19-24',
+     all:['“Placement hua? Kitna package?”','“Government job ki taiyari kar lo”','A job straight after the degree, no gaps'],
+     w:['“Itni door kyun jaana hai?”','“Padhai ho gayi. Ab rishte dekhein?”'],
+     m:['Start providing: for parents, for a sister’s wedding','Send money home'],
+     h:'Choosing your own road can make you the family disappointment for years. It may also fail, and then “I told you so” will be partly fair.',
+     p:{metro:'The hustle script. Rent eats the salary, and loneliness is the bill nobody mentions.',city:'Sarkari naukri is the gold standard, so years go into attempts.',village:'Earn now. Many men leave for work. For many women the wedding arrives before the degree.',abroad:'Loans, visas, and “come back” and “don’t come back” from the same house.'},
+     g:'the Package, Sarkari and Feed games',c:'the work choices'},
+   '25-29':{n:'Section C · The shaadi years',id:'age-25-29',
+     all:['“Shaadi kab kar rahe ho?”','“Apni community mein hi dekhna”','The biodata'],
+     w:['“Umar nikal rahi hai”','You will move and you will adjust','Your family pays for most of the wedding'],
+     m:['“Settle ho gaye? Ghar liya?”','A salary big enough to be “eligible”'],
+     h:'There is no free option here. Marrying your choice can cost you family. Marrying theirs to keep peace is paid for daily, by two people.',
+     p:{metro:'A dating app and a biodata running at once.',city:'The clock rings at 24 or 25 for women. A partner from another caste or religion is the hardest news to carry home.',village:'Many are already married. The questions are about children, earning, and whether a wife may work.',abroad:'“Find someone from our community.” Trips home become rishta camps.'},
+     g:'the Wedding game and the Marriage Market',c:'the ten marriage choices'},
+   '30-34':{n:'Section D · The “ab toh” years',id:'age-30-34',
+     all:['“Good news kab?”','“Ghar kab le rahe ho?”','Look after your parents'],
+     w:['Slow your career down for the child','Run the house even if you also earn'],
+     m:['The main duty for ageing parents is yours','Be the EMI'],
+     h:'You cannot be the perfect child, partner, parent and employee in one decade. Decide who you will let down, on purpose.',
+     p:{metro:'EMI, school fees, two jobs. Childcare still lands mostly on her.',city:'Joint family negotiations: whose kitchen, whose rules.',village:'You are already a senior. The talk is of sons, land, and who must leave for work.',abroad:'Parents growing old far away. Guilt across two time zones.'},
+     g:'the Property, Children and Sacrifice games',c:'the children and home choices'}
+  };
+  var st={age:'19-24',sex:'x',place:'metro'};
+  try{var s=JSON.parse(localStorage.getItem('lkk-way')||'null');if(s&&A[s.age])st=s;}catch(e){}
+  var groups={age:[['15-18','15 to 18'],['19-24','19 to 24'],['25-29','25 to 29'],['30-34','30 to 34']],
+              sex:[['w','A woman'],['m','A man'],['x','Neither, or rather not say']],
+              place:[['metro','A metro'],['city','A small city or town'],['village','A village'],['abroad','Abroad']]};
+  var el={age:document.getElementById('pk-age'),sex:document.getElementById('pk-sex'),place:document.getElementById('pk-place')};
+  Object.keys(groups).forEach(function(k){
+    groups[k].forEach(function(o){
+      var b=document.createElement('button');b.type='button';b.id='pk-'+k+'-'+o[0];b.textContent=o[1];b.setAttribute('data-v',o[0]);
+      b.addEventListener('click',function(){st[k]=o[0];try{localStorage.setItem('lkk-way',JSON.stringify(st));}catch(e){}draw();});
+      el[k].appendChild(b);
+    });
+  });
+  function draw(){
+    Object.keys(el).forEach(function(k){
+      var bs=el[k].querySelectorAll('button');
+      for(var i=0;i<bs.length;i++)bs[i].setAttribute('aria-pressed',bs[i].getAttribute('data-v')===st[k]?'true':'false');
+    });
+    var a=A[st.age];
+    var go=document.getElementById('w-go');go.textContent=a.n;go.setAttribute('href','#'+a.id);
+    var ul=document.getElementById('w-list');ul.textContent='';
+    var items=a.all.concat(st.sex==='w'?a.w:st.sex==='m'?a.m:[]);
+    items.forEach(function(t){var li=document.createElement('li');li.textContent=t;ul.appendChild(li);});
+    if(st.sex==='x'){var li=document.createElement('li');li.textContent='If the script has no page for you at all, that is its own pressure. See C4 in the shaadi years.';ul.appendChild(li);}
+    document.getElementById('w-place').textContent=a.p[st.place];
+    document.getElementById('w-honest').textContent=a.h;
+    var nx=document.getElementById('w-next');nx.textContent='';
+    var l1=document.createElement('a');l1.href='status.html';l1.textContent='Form B: '+a.g;
+    var l2=document.createElement('a');l2.href='choices.html';l2.textContent='Form C: '+a.c;
+    nx.appendChild(l1);nx.appendChild(document.createTextNode(' · '));nx.appendChild(l2);
+  }
+  draw();
+})();
+</script>
+<script src="site.js"></script>
 </body>
 </html>
