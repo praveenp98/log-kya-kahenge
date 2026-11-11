@@ -7,128 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Kalam:wght@400;700&family=Rozha+One&display=swap" rel="stylesheet">
-<style>
-/* Layout idea: one sarkari form, top to bottom. Printed labels in Hind, answers "filled in" by hand in Kalam, headings in Rozha One. One column, 680px. Every claim carries a confidence tag. */
-:root{
-  --paper:#E9F0E8;
-  --card:#F6F9F3;
-  --ink:#1A2238;
-  --muted:#55607A;
-  --pen:#1D3FB8;
-  --stamp:#B8204F;
-  --marker:#F4CF4A;
-  --on-marker:#1A2238;
-  --rule:#A9B8AC;
-  --display:"Rozha One","Hind",Georgia,serif;
-  --body:"Hind",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --hand:"Kalam","Comic Sans MS",cursive;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --paper:#0F1626; --card:#172036; --ink:#E4EAE2; --muted:#9AA6BD;
-    --pen:#93ABFF; --stamp:#FF7AA2; --marker:#E2B93B; --on-marker:#141A2B; --rule:#36425C;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --paper:#0F1626; --card:#172036; --ink:#E4EAE2; --muted:#9AA6BD;
-  --pen:#93ABFF; --stamp:#FF7AA2; --marker:#E2B93B; --on-marker:#141A2B; --rule:#36425C;
-  color-scheme:dark;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:64px}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%}
-a{color:var(--pen);text-underline-offset:3px}
-a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--stamp);outline-offset:2px}
-.wrap{max-width:680px;margin:0 auto;padding:0 18px}
-h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.08;text-wrap:balance;margin:0}
-p{margin:0}
-.stack{display:flex;flex-direction:column;gap:16px}
-.label{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
-.hand{font-family:var(--hand);color:var(--pen);font-size:1.12em;line-height:1.45}
-mark{background:var(--marker);color:var(--on-marker);padding:0 .2em;border-radius:2px}
-.gloss{color:var(--muted);font-size:14px;font-family:var(--body)}
-
-/* Confidence tags */
-.t{font-style:normal;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;border-radius:2px;padding:1px 6px;margin-left:4px;border:1.5px solid currentColor;vertical-align:1px}
-.t.s{color:var(--pen)}
-.t.o{color:var(--muted)}
-.t.n{color:var(--paper);background:var(--stamp);border-color:var(--stamp)}
-
-.formhead{border-bottom:2px solid var(--ink);padding:14px 0 10px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.formhead span{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
-
-.hero{padding:34px 0 30px;display:flex;flex-direction:column;gap:18px}
-.deva{font-family:var(--display);font-size:clamp(30px,8vw,44px);color:var(--stamp);line-height:1.2}
-.hero h1{font-size:clamp(44px,13vw,84px);letter-spacing:-.01em}
-.hero h1 em{font-style:normal;color:var(--pen)}
-.lede{font-size:19px;max-width:34em}
-.stampbox{align-self:flex-start;border:3px double var(--stamp);color:var(--stamp);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:8px 12px;transform:rotate(-4deg);border-radius:4px;line-height:1.3}
-.tongues{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:0}
-.tongues li{border:1px solid var(--rule);background:var(--card);border-radius:3px;padding:5px 9px;font-size:14px;line-height:1.3}
-.tongues b{font-weight:600}
-.tongues span{color:var(--muted);font-size:12px;display:block}
-
-nav.jump{position:sticky;top:0;z-index:5;background:var(--paper);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
-nav.jump .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:8px;padding-bottom:8px}
-nav.jump a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-weight:600;font-size:14px;border:1.5px solid var(--ink);border-radius:3px;padding:5px 10px;background:var(--card)}
-nav.jump a:hover{background:var(--marker);color:var(--on-marker)}
-
-section{padding:38px 0;border-bottom:1px dashed var(--rule)}
-.sec-head{display:flex;flex-direction:column;gap:6px;margin-bottom:20px}
-.sec-head h2{font-size:clamp(30px,8vw,44px)}
-.sec-head p{color:var(--muted)}
-
-.field{border:1.5px solid var(--ink);background:var(--card);border-radius:3px}
-.field > .label{display:block;border-bottom:1px solid var(--rule);padding:7px 12px}
-.field > .body{padding:12px 14px;display:flex;flex-direction:column;gap:10px}
-.field ul,.field ol{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:9px}
-
-.rules{display:flex;flex-direction:column;gap:14px;counter-reset:rule;list-style:none;margin:0;padding:0}
-.rules li{counter-increment:rule;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:start}
-.rules li::before{content:counter(rule);font-family:var(--display);font-size:34px;line-height:1;color:var(--stamp);min-width:1.1em}
-.rules h3{font-family:var(--body);font-weight:700;font-size:18px;line-height:1.3}
-.rules div{display:flex;flex-direction:column;gap:4px}
-
-.legend{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:baseline}
-.legend .t{margin-left:0}
-
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips button{font:inherit;font-size:15px;font-weight:500;color:var(--ink);background:var(--card);border:1.5px solid var(--ink);border-radius:999px;padding:6px 13px;cursor:pointer;text-align:left}
-.chips button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-.decode .row{padding:12px 14px;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:3px}
-.decode .row:first-child{border-top:0}
-
-.age-tag{display:inline-block;align-self:flex-start;background:var(--ink);color:var(--paper);font-weight:700;font-size:13px;letter-spacing:.08em;padding:3px 9px;border-radius:2px;text-transform:uppercase}
-.places div{padding:10px 14px;border-top:1px solid var(--rule);display:grid;grid-template-columns:92px 1fr;gap:10px}
-.places div:first-child{border-top:0}
-.places b{font-size:13px;letter-spacing:.05em;text-transform:uppercase;color:var(--stamp);padding-top:3px}
-.pocket{border-left:4px solid var(--pen);padding:4px 0 4px 14px;display:flex;flex-direction:column;gap:2px}
-
-.piles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
-
-.help{border:3px double var(--stamp);border-radius:4px;padding:16px;display:flex;flex-direction:column;gap:10px;background:var(--card)}
-.help h3{font-family:var(--body);font-weight:700;font-size:19px;color:var(--stamp)}
-.nums{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-variant-numeric:tabular-nums}
-.nums b{font-size:18px}
-
-.tablewrap{overflow-x:auto;border:1.5px solid var(--ink);border-radius:3px;background:var(--card)}
-table{border-collapse:collapse;width:100%;min-width:500px;font-size:15px}
-th,td{text-align:left;padding:9px 12px;border-top:1px solid var(--rule);vertical-align:top}
-tr:first-child th{border-top:0}
-thead th{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-td.n{font-family:var(--display);font-size:21px;white-space:nowrap;color:var(--pen);font-variant-numeric:tabular-nums;line-height:1.2}
-
-.quiet{font-size:20px;line-height:1.55;max-width:32em}
-.pledge{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
-.pledge label{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;cursor:pointer}
-.pledge input{width:22px;height:22px;margin:3px 0 0;accent-color:var(--pen)}
-.sign{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-top:8px}
-.sign .line{flex:1 1 180px;border-bottom:1.5px solid var(--ink);padding-bottom:2px}
-footer{padding:26px 0 46px;color:var(--muted);font-size:14px}
-footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px}
-</style>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 
@@ -137,6 +16,7 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
     <span>Form LKK-34</span>
     <span>For applicants aged 15 to 34</span>
   </div>
+  <div class="pages"><a class="on" href="index.html">Form A · Expectations</a><a href="status.html">Form B · Status games</a></div>
 
   <header class="hero">
     <p class="deva" lang="hi">लोग क्या कहेंगे?</p>
@@ -164,6 +44,7 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
 
 <nav class="jump" aria-label="Sections">
   <div class="wrap">
+    <a href="#gaps">At a glance</a>
     <a href="#read-first">Read first</a>
     <a href="#how-it-works">How it works</a>
     <a href="#full-list">Full list</a>
@@ -180,6 +61,30 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
 </nav>
 
 <main class="wrap">
+
+<!-- GAPS -->
+<section id="gaps">
+  <div class="sec-head">
+    <p class="label">At a glance</p>
+    <h2>Three gaps that explain most of it</h2>
+    <p>Each pair is drawn to its own scale. Sources are in the Numbers section.</p>
+  </div>
+  <div class="stack" style="gap:26px">
+    <div class="gap"><h3>What we say and what we do about caste in marriage</h3>
+      <div class="bar"><span>Young Indians who support inter-caste marriage</span><div class="barrow"><i style="width:100%"></i><b>61%</b></div></div>
+      <div class="bar b"><span>Marriages that are inter-caste</span><div class="barrow"><i style="width:8%"></i><b>5%</b></div></div>
+    </div>
+    <div class="gap"><h3>Who does the unpaid housework, in minutes a day</h3>
+      <div class="bar"><span>Women</span><div class="barrow"><i style="width:100%"></i><b>289</b></div></div>
+      <div class="bar b"><span>Men</span><div class="barrow"><i style="width:30%"></i><b>88</b></div></div>
+    </div>
+    <div class="gap"><h3>"A wife must always obey her husband": fully agree</h3>
+      <div class="bar"><span>Uttar Pradesh</span><div class="barrow"><i style="width:100%"></i><b>82%</b></div></div>
+      <div class="bar b"><span>Tamil Nadu</span><div class="barrow"><i style="width:44%"></i><b>36%</b></div></div>
+    </div>
+    <p class="gloss">The same country, the same generation, very different starting points. That is why one piece of advice never fits everyone.</p>
+  </div>
+</section>
 
 <!-- READ FIRST -->
 <section id="read-first">
@@ -210,7 +115,7 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
   <div class="sec-head">
     <p class="label">Part 1 · Instructions</p>
     <h2>How the whole thing works</h2>
-    <p>Eight rules. The first six explain the pressure. The last two are the ones nobody likes hearing.</p>
+    <p>Eight rules. The first six explain the pressure. The last two are the ones nobody likes hearing. For the scoreboard behind all of it, see <a href="status.html">Form B: the status games</a>.</p>
   </div>
   <ol class="rules">
     <li><div>
@@ -253,11 +158,11 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
   <div class="sec-head">
     <p class="label">Part 2 · Schedule of expectations</p>
     <h2>The full list</h2>
-    <p>Eleven areas, as complete as we could make it. Not every item applies to every family, and the list is certainly missing things.</p>
+    <p>Eleven areas, as complete as we could make it. Tap an area to open it. Not every item applies to every family, and the list is certainly missing things.</p>
   </div>
   <div class="stack">
 
-    <div class="field"><span class="label">L1 · Studies and marks</span><div class="body"><ul>
+    <details class="field" open><summary class="label">L1 · Studies and marks</summary><div class="body"><ul>
       <li><b>Top marks, every time.</b> Marks are read as character, not as one exam on one day. <i class="t o">Seen often</i></li>
       <li><b>Science after class 10.</b> Commerce is the compromise. Arts is treated as what is left over. <i class="t o">Seen often</i></li>
       <li><b>Engineer, doctor or government officer.</b> Everything else needs explaining. <i class="t o">Seen often</i></li>
@@ -266,9 +171,9 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
       <li><b>No gaps.</b> A year off is allowed only to retake an entrance exam. <i class="t o">Seen often</i></li>
       <li><b>For many girls, school ends when marriage, money or distance gets in the way.</b> One in five women aged 20 to 24 was married before 18. In villages it is 23%, in cities 11%. <i class="t s">Survey</i></li>
       <li><b>The cost.</b> 14,488 students died by suicide in 2024, up about 80% in ten years. <i class="t s">Survey</i> How much of that is exam pressure, we do not know. Police records name exam failure in only a small share, and those records are rough. <i class="t n">Not sure</i></li>
-    </ul></div></div>
+    </ul></div></details>
 
-    <div class="field"><span class="label">L2 · Work and money</span><div class="body"><ul>
+    <details class="field"><summary class="label">L2 · Work and money</summary><div class="body"><ul>
       <li><b>A job straight after the degree.</b> A gap is read as failure. Yet young people are about 83% of India's unemployed. <i class="t s">Survey</i></li>
       <li><b>A government job is the only real job.</b> <i class="t o">Seen often</i></li>
       <li><b>Your salary is public information.</b> <i class="t o">Seen often</i></li>
@@ -279,9 +184,9 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
       <li><b>Take no risks.</b> No startup, art, sport or career switch, unless you have already succeeded at it. <i class="t o">Seen often</i></li>
       <li><b>Join the family business, shop or farm.</b> <i class="t o">Seen often</i></li>
       <li><b>Go abroad, or never go abroad.</b> Families differ sharply and we have no data on which is more common. <i class="t n">Not sure</i></li>
-    </ul></div></div>
+    </ul></div></details>
 
-    <div class="field"><span class="label">L3 · Marriage</span><div class="body"><ul>
+    <details class="field"><summary class="label">L3 · Marriage</summary><div class="body"><ul>
       <li><b>You will marry.</b> Staying single is not offered as an option. <i class="t o">Seen often</i></li>
       <li><b>By a deadline.</b> Roughly mid-twenties for women, late twenties for men, earlier in villages. The exact age differs by family and place and we have no reliable figure for it. <i class="t n">Not sure</i></li>
       <li><b>Parents choose or approve.</b> 84% of married young people said their marriage was arranged by parents. <i class="t s">Survey</i></li>
@@ -292,9 +197,9 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
       <li><b>The biodata checklist.</b> Horoscope, skin colour, height, salary, "homely". <i class="t o">Seen often</i></li>
       <li><b>Stay married.</b> Divorce is read as failure. Acceptance is higher among educated and urban young people. <i class="t s">Survey</i></li>
       <li><b>If you are queer, marry the opposite sex anyway.</b> <i class="t o">Seen often</i> As far as we could check in November 2026, Indian law still does not recognise same-sex marriage. <i class="t s">Survey</i></li>
-    </ul></div></div>
+    </ul></div></details>
 
-    <div class="field"><span class="label">L4 · Children</span><div class="body"><ul>
+    <details class="field"><summary class="label">L4 · Children</summary><div class="body"><ul>
       <li><b>A child within a year or two of the wedding.</b> <i class="t o">Seen often</i></li>
       <li><b>At least one son.</b> 63% of Indians say sons, not daughters, should mainly handle parents' last rites. <i class="t s">Survey</i></li>
       <li><b>Two children.</b> One is "lonely", none is "selfish". About four in ten women and a third of men name two as ideal. <i class="t s">Survey</i></li>
@@ -302,18 +207,18 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
       <li><b>Grandparents get a vote on how the child is raised.</b> <i class="t o">Seen often</i></li>
       <li><b>If there is no child, she is blamed first.</b> <i class="t o">Seen often</i></li>
       <li><b>Choosing to have no children.</b> We do not know how common it is in India, or how families respond over time. <i class="t n">Not sure</i></li>
-    </ul></div></div>
+    </ul></div></details>
 
-    <div class="field"><span class="label">L5 · Body and looks</span><div class="body"><ul>
+    <details class="field"><summary class="label">L5 · Body and looks</summary><div class="body"><ul>
       <li><b>Fair skin.</b> Pressed hardest on women. <i class="t o">Seen often</i></li>
       <li><b>The right weight.</b> Comments on your body work as a greeting. More than half of young Indians say they worry about their appearance. <i class="t s">Survey</i></li>
       <li><b>Men must be tall, strong and not bald.</b> Body-shaming among boys is documented in city studies. <i class="t s">Survey</i></li>
       <li><b>Dress "decently".</b> The rule tightens for girls at puberty and again after marriage. <i class="t o">Seen often</i></li>
       <li><b>Hair, beard, tattoos and piercings are read as character.</b> <i class="t o">Seen often</i></li>
       <li><b>Periods are not discussed.</b> In some homes they bring kitchen or prayer restrictions. This differs widely by family and community. <i class="t n">Not sure</i></li>
-    </ul></div></div>
+    </ul></div></details>
 
-    <div class="field"><span class="label">L6 · Freedom and izzat</span><div class="body"><ul>
+    <details class="field"><summary class="label">L6 · Freedom and izzat</summary><div class="body"><ul>
       <li><b>Home before dark.</b> Mostly for daughters. <i class="t o">Seen often</i></li>
       <li><b>The family's honour lives in a daughter's behaviour.</b> A son's behaviour is "boys will be boys". <i class="t o">Seen often</i></li>
       <li><b>No dating.</b> Or dating, in secret. <i class="t o">Seen often</i></li>
@@ -322,9 +227,9 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
       <li><b>Do not live alone before marriage.</b> Suspicious for anyone, more so for women. <i class="t o">Seen often</i></li>
       <li><b>Do not drink or smoke.</b> Or do not be seen. <i class="t o">Seen often</i></li>
       <li><b>Never answer back to an elder.</b> <i class="t o">Seen often</i></li>
-    </ul></div></div>
+    </ul></div></details>
 
-    <div class="field"><span class="label">L7 · Caste, religion and community</span><div class="body"><ul>
+    <details class="field"><summary class="label">L7 · Caste, religion and community</summary><div class="body"><ul>
       <li><b>Marry inside.</b> Six in ten young people say they support inter-caste marriage. One marriage in twenty is one. <i class="t s">Survey</i></li>
       <li><b>Eat inside.</b> Food rules mark who belongs. In 2011-12, 30% of rural and 20% of urban households said they practised untouchability. That figure is old. <i class="t s">Survey</i></li>
       <li><b>Keep the fasts, festivals and prayers.</b> <i class="t o">Seen often</i></li>
@@ -332,9 +237,9 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
       <li><b>Your surname speaks before you do.</b> <i class="t o">Seen often</i></li>
       <li><b>If your group faces discrimination: be twice as good and do not complain.</b> Many people report this. We cannot speak for it. <i class="t n">Not sure</i></li>
       <li><b>What we are missing.</b> How these pressures differ for Dalit, Adivasi, Muslim, Christian, Sikh and north-eastern young people. This page does not know enough to say. <i class="t n">Not sure</i></li>
-    </ul></div></div>
+    </ul></div></details>
 
-    <div class="field"><span class="label">L8 · Roles inside the home</span><div class="body"><ul>
+    <details class="field"><summary class="label">L8 · Roles inside the home</summary><div class="body"><ul>
       <li><b>A wife obeys.</b> 87% of Indian adults agree a wife must always obey her husband. Women agree almost as often as men. <i class="t s">Survey</i></li>
       <li><b>She runs the house, even if she also earns.</b> <i class="t s">Survey</i></li>
       <li><b>Sons look after parents.</b> About four in ten say sons should carry the main duty. 2% say daughters. <i class="t s">Survey</i></li>
@@ -342,33 +247,33 @@ footer ul{margin:8px 0 0;padding-left:1.2em;display:flex;flex-direction:column;g
       <li><b>A daughter-in-law serves. A son-in-law is served.</b> <i class="t o">Seen often</i></li>
       <li><b>Brothers guard sisters.</b> <i class="t o">Seen often</i></li>
       <li><b>If you are trans or non-binary, the expectation is that you do not exist.</b> This page knows too little here. <i class="t n">Not sure</i></li>
-    </ul></div></div>
+    </ul></div></details>
 
-    <div class="field"><span class="label">L9 · Language, class and status</span><div class="body"><ul>
+    <details class="field"><summary class="label">L9 · Language, class and status</summary><div class="body"><ul>
       <li><b>English means smart. Accent means class.</b> <i class="t o">Seen often</i></li>
       <li><b>Speak the "right" language for the room.</b> Your mother tongue can be mocked in a metro and demanded at home. <i class="t o">Seen often</i></li>
       <li><b>"Good family" and "well settled".</b> Often code for money and caste. <i class="t o">Seen often</i></li>
       <li><b>First in the family to reach college.</b> You carry everyone's hope and nobody has a map for you. <i class="t o">Seen often</i></li>
       <li><b>The scoreboard.</b> Phone, bike, car, flat, wedding. <i class="t o">Seen often</i></li>
-    </ul></div></div>
+    </ul></div></details>
 
-    <div class="field"><span class="label">L10 · Parents and elders</span><div class="body"><ul>
+    <details class="field"><summary class="label">L10 · Parents and elders</summary><div class="body"><ul>
       <li><b>Live with them or near them.</b> Expected mainly of sons. <i class="t s">Survey</i></li>
       <li><b>Obey, even as an adult.</b> <i class="t o">Seen often</i></li>
       <li><b>Repay the sacrifice.</b> <i class="t o">Seen often</i></li>
       <li><b>Never an old-age home.</b> <i class="t o">Seen often</i></li>
       <li><b>Keep family problems inside the house.</b> Therapy is "for mad people". Roughly 85% of Indians with a mental health condition get no treatment. <i class="t s">Survey</i></li>
       <li><b>Property.</b> 64% say sons and daughters should inherit equally. Whether daughters actually receive their share, or are asked to sign it away, we could not verify. <i class="t n">Not sure</i></li>
-    </ul></div></div>
+    </ul></div></details>
 
-    <div class="field"><span class="label">L11 · The new "log": friends and the feed</span><div class="body"><ul>
+    <details class="field"><summary class="label">L11 · The new "log": friends and the feed</summary><div class="body"><ul>
       <li><b>Look successful by 25.</b> <i class="t o">Seen often</i></li>
       <li><b>Show the trip, the body, the relationship.</b> <i class="t o">Seen often</i></li>
       <li><b>Hustle.</b> A side income, a startup, a personal brand. <i class="t o">Seen often</i></li>
       <li><b>Have an opinion on everything, today.</b> <i class="t o">Seen often</i></li>
       <li><b>Be "chill" about things that hurt.</b> <i class="t o">Seen often</i></li>
       <li><b>How much of the pressure is family and how much is peers?</b> We found no data. For some people the feed is heavier than the family. <i class="t n">Not sure</i></li>
-    </ul></div></div>
+    </ul></div></details>
 
   </div>
 </section>
